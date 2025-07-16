@@ -10,14 +10,17 @@ import java.time.Duration;
 
 public abstract class BaseModel {
     protected WebDriver driver;
-
     public BaseModel(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
 
     }
 
-    public WebDriver getDriver() {
+    public WebDriver getDriver(){
         return driver;
     }
+
+
+
+
 }

@@ -1,6 +1,5 @@
-package pages.base;
+package basic;
 
-import basic.BaseModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -8,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static basic.Constants.TimeoutVariable.EXPLICIT_WAIT_FIVE;
-import static basic.Constants.Urls.URL_MAIN;
 
 public class BasePage {
     protected WebDriver driver;
