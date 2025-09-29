@@ -1,25 +1,29 @@
 package basic;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import component.HeaderComponent;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static basic.Constants.TimeoutVariable.EXPLICIT_WAIT_FIVE;
+import java.time.Duration;
 
-public class BasePage {
-    protected WebDriver driver;
 
+public abstract class BasePage extends BaseModel {
+
+
+    public BasePage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);
+    }
 
     public BasePage(WebDriver driver, String url) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
-        openPage(url);
+
+
     }
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public HeaderComponent getHeader() {
+        return new HeaderComponent(getDriver());
     }
 
     public void openPage(String url) {
@@ -27,14 +31,25 @@ public class BasePage {
     }
 
     public String getCurrentUrl() {
-
         return driver.getCurrentUrl();
     }
 
-    public WebElement waitElementIsVisible(WebElement element) {
-        new WebDriverWait(driver, EXPLICIT_WAIT_FIVE).until(ExpectedConditions.visibilityOf(element));
-        return element;
 
-    }
+//    public void removeBannerWithJS() {
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+//        try {
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].remove();", driver.findElement(By.xpath("//ins[@data-ad-status='filled']")));
+//            System.out.println("Баннер удален");
+//        } catch (NoSuchElementException e) {
+//            System.out.println("Рекламный баннер не найден — продолжаем выполнение.");
+//        } finally {
+//            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//        }
+//
+//    }
 
 }
+
+
+
+

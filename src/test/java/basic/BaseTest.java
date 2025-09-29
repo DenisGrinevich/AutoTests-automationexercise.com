@@ -7,17 +7,21 @@ import org.testng.annotations.BeforeMethod;
 
 import java.lang.reflect.Method;
 
-public class BaseTest {
+public abstract class BaseTest {
     private WebDriver driver;
 
-    protected WebDriver startDriver() {
+    protected void startDriver() {
         driver = ProjectUtils.createDriver();
+
+    }
+
+    protected WebDriver getDriver() {
         return driver;
     }
 
-  protected WebDriver getDriver() {
-       return driver;
-   }
+    protected void getWeb() {
+        driver.get("https://automationexercise.com/");
+    }
 
     private void closeDriver() {
         if (driver != null) {
@@ -25,15 +29,17 @@ public class BaseTest {
             driver = null;
         }
     }
-        @BeforeMethod
-        protected void beforeMethod (){
-            startDriver();
-        }
 
-        @AfterMethod
-        protected void afterMethod (){
-            closeDriver();
-        }
-
-
+    @BeforeMethod
+    protected void beforeMethod() {
+        startDriver();
+        getWeb();
     }
+
+    @AfterMethod
+    protected void afterMethod() {
+        closeDriver();
+    }
+
+
+}
