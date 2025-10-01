@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.main.HomePage;
 
-
 import static pages.signup.SignupPage.Gender.Mr;
 
 public class UserTest extends BaseTest {
@@ -58,9 +57,7 @@ public class UserTest extends BaseTest {
 
         Assert.assertEquals(name, NAME);
 
-
     }
-
 
     @Test(dependsOnMethods = "testUserRegistration")
     public void testSuccessLogout() {
