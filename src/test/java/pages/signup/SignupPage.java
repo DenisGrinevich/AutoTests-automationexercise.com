@@ -78,7 +78,7 @@ public class SignupPage extends BasePage {
     }
 
     public SignupPage selectGenderButton(Gender gender) {
-        getWait10().until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='radio' and @value = '" + gender + "']"))).click();
+        waitForClickableElement(By.xpath("//input[@type='radio' and @value = '" + gender + "']")).click();
         return this;
     }
 
@@ -207,7 +207,7 @@ return this;
     }
 
     public AccountCreatedPage clickCreateAccountButton(){
-        getWait10().until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-qa='create-account']"))).click();
+        waitForClickableElement(By.cssSelector("[data-qa='create-account']")).click();
         return new AccountCreatedPage(getDriver());
     }
 }

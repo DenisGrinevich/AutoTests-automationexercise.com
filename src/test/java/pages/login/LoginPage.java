@@ -34,13 +34,14 @@ public class LoginPage extends BasePage {
 
 
     public LoginPage checkSignupFormName() {
-       try {
-           getWait10().until(ExpectedConditions
-                   .visibilityOfElementLocated(By.xpath("//*[.='New User Signup!']"))).isDisplayed();
-       } catch (Exception e) {
-           throw new RuntimeException(e);
-       }
-        return this;
+        try {
+            getWait10().until(ExpectedConditions
+                    .visibilityOfElementLocated(By.xpath("//*[.='New User Signup!']"))).isDisplayed();
+            return this;
+        } catch (Exception e) {
+            System.out.println("Элемент не найден");
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -50,15 +51,25 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isUnsuccessfulLoginTextDisplayed() {
-       return getWait10().until(ExpectedConditions
-                .visibilityOfElementLocated(By.xpath("//*[.='Your email or password is incorrect!']")))
-                .isDisplayed();
+        try {
+            return getWait10().until(ExpectedConditions
+                            .visibilityOfElementLocated(By.xpath("//*[.='Your email or password is incorrect!']")))
+                    .isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Элемент не найден");
+            throw new RuntimeException(e);
+        }
     }
 
-    public boolean isUnsuccessfulRegistrationTextDisplayed(){
-       return getWait10().until(ExpectedConditions
-                .visibilityOfElementLocated(By.xpath("//*[.='Email Address already exist!']")))
-                .isDisplayed();
+    public boolean isUnsuccessfulRegistrationTextDisplayed() {
+        try {
+            return getWait10().until(ExpectedConditions
+                            .visibilityOfElementLocated(By.xpath("//*[.='Email Address already exist!']")))
+                    .isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Элемент не найден");
+            throw new RuntimeException(e);
+        }
     }
 
     public LoginPage enterName(String name) {
@@ -74,12 +85,12 @@ public class LoginPage extends BasePage {
     }
 
     public SignupPage clickSignupButton() {
-        getWait10().until(ExpectedConditions.elementToBeClickable(signupButton)).click();
+        waitForClickableElement(signupButton).click();
         return new SignupPage(getDriver());
     }
 
     public LoginPage clickSignupButtonWithIncorrectData() {
-        getWait10().until(ExpectedConditions.elementToBeClickable(signupButton)).click();
+        waitForClickableElement(signupButton).click();
         return this;
     }
 
@@ -97,11 +108,12 @@ public class LoginPage extends BasePage {
     }
 
     public HomePage clickLoginButton() {
-        getWait10().until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+        waitForClickableElement(loginButton).click();
         return new HomePage(getDriver());
     }
+
     public LoginPage clickLoginButtonWithIncorrectData() {
-        getWait10().until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+        waitForClickableElement(loginButton).click();
         return this;
     }
 

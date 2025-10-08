@@ -5,10 +5,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.main.HomePage;
 
-public class ContactUsPageTest extends BaseTest {
+public class ContactUsTest extends BaseTest {
 
     @Test
-    public void testSendContactForm(){
+    public void testSendContactForm() {
         String homepage = new HomePage(getDriver())
                 .getHeader()
                 .clickContactUsButton()

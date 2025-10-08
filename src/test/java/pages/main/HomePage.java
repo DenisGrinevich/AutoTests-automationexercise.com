@@ -1,10 +1,10 @@
 package pages.main;
 
+import basic.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import basic.BasePage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.product.ProductPage;
 
@@ -33,8 +33,7 @@ public class HomePage extends BasePage {
     }
 
     public ProductPage clickOnViewProductButton(int productIndex) {
-        getWait10().until(ExpectedConditions
-                        .elementToBeClickable(chooseProductButton(productIndex)))
+        waitForClickableElement(chooseProductButton(productIndex))
                 .click();
         return new ProductPage(getDriver());
     }

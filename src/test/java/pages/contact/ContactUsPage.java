@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import pages.main.HomePage;
 
 import java.nio.file.Files;
@@ -37,19 +36,21 @@ public class ContactUsPage extends BasePage {
         try {
             getWait10().until(ExpectedConditions
                     .visibilityOfElementLocated(By.xpath("//*[.='Get In Touch']"))).isDisplayed();
+            return this;
         } catch (Exception e) {
+            System.out.println("Элемент не найден");
             throw new RuntimeException(e);
         }
-        return this;
+
     }
 
     public ContactUsPage clickSubmitButton() {
-        getWait5().until(ExpectedConditions.elementToBeClickable(By.cssSelector("[name='submit']"))).click();
+        waitForClickableElement(By.cssSelector("[name='submit']")).click();
         return this;
     }
 
     public HomePage clickReturnHomeButton() {
-        getWait5().until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.btn"))).click();
+        waitForClickableElement(By.cssSelector("a.btn")).click();
         return new HomePage(getDriver());
     }
 
@@ -58,10 +59,11 @@ public class ContactUsPage extends BasePage {
             try {
                 getWait10().until(ExpectedConditions
                         .visibilityOfElementLocated(By.xpath("//*[.='Success! Your details have been submitted successfully.']"))).isDisplayed();
+           return this;
             } catch (Exception e) {
+                System.out.println("Элемент не найден");
                 throw new RuntimeException(e);
             }
-            return this;
         }
     }
     public ContactUsPage enterName(String name) {

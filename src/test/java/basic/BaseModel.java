@@ -1,13 +1,11 @@
 package basic;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-
 
 
 public abstract class BaseModel {
@@ -15,7 +13,8 @@ public abstract class BaseModel {
     private WebDriverWait wait1;
     private WebDriverWait wait5;
     private WebDriverWait wait10;
-//    protected String url;
+
+    //    protected String url;
     public BaseModel(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -23,10 +22,11 @@ public abstract class BaseModel {
     }
 
 
-    public WebDriver getDriver(){
+    public WebDriver getDriver() {
         return driver;
 
     }
+
     protected WebDriverWait getWait10() {
         if (wait10 == null) {
             wait10 = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
@@ -35,6 +35,7 @@ public abstract class BaseModel {
 
         return wait10;
     }
+
     protected WebDriverWait getWait5() {
         if (wait5 == null) {
             wait5 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
@@ -43,6 +44,7 @@ public abstract class BaseModel {
 
         return wait5;
     }
+
     protected WebDriverWait getWait1() {
         if (wait1 == null) {
             wait1 = new WebDriverWait(getDriver(), Duration.ofSeconds(1));
@@ -52,4 +54,27 @@ public abstract class BaseModel {
         return wait1;
     }
 
+    public WebElement waitForClickableElement(By locator) {
+        try {
+            return getWait5().until(ExpectedConditions.elementToBeClickable(locator));
+        } catch (NoSuchElementException e) {
+            System.out.println("Элемент " + locator + " не найден");
+            return null;
+        } catch (TimeoutException e) {
+            System.out.println("Элемент " + locator + " не найден");
+            return null;
+        }
+    }
+
+    public WebElement waitForClickableElement(WebElement element) {
+        try {
+            return getWait5().until(ExpectedConditions.elementToBeClickable(element));
+        } catch (NoSuchElementException e) {
+            System.out.println("Элемент " + element + " не найден");
+            return null;
+        } catch (TimeoutException e) {
+            System.out.println("Элемент " + element + " не найден");
+            return null;
+        }
+    }
 }

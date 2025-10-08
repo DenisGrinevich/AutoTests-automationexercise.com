@@ -1,11 +1,8 @@
 package basic;
 
 import component.HeaderComponent;
-import org.openqa.selenium.*;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.time.Duration;
 
 
 public abstract class BasePage extends BaseModel {
@@ -33,6 +30,7 @@ public abstract class BasePage extends BaseModel {
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
+
 
 
 //    public void removeBannerWithJS() {
