@@ -44,15 +44,15 @@ public class ProductsPage extends HomePage {
 
     public ProductsPage checkSearchResultPage() {
         try {
-            getWait10().until(ExpectedConditions
-                    .visibilityOfElementLocated(By.xpath("//h2[@class='title text-center'][contains(text(),'Searched Products')]"))).isDisplayed();
-            return this;
+            if (waitForVisibleElement(By.xpath("//h2[@class='title text-center'][contains(text(),'Searched Products')]")).isDisplayed()) {
+                return this;
+            } else {
+                return null;
+            }
         } catch (Exception e) {
-            System.out.println("Элемент не найден");
-            throw new RuntimeException(e);
+            throw new NullPointerException("Текст \"Searched Products\" не найден");
         }
     }
-
 
     public String checkProductName() {
         return getWait5().until(ExpectedConditions
@@ -65,7 +65,6 @@ public class ProductsPage extends HomePage {
         return new HomePage(getDriver());
 
     }
-
 
     public boolean checkRequestInProductName(String request) {
         List<String> text = getDriver().findElements(By.xpath("//div[@class='productinfo text-center']/p")).stream()

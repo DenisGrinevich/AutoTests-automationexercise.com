@@ -35,12 +35,14 @@ public class LoginPage extends BasePage {
 
     public LoginPage checkSignupFormName() {
         try {
-            getWait10().until(ExpectedConditions
-                    .visibilityOfElementLocated(By.xpath("//*[.='New User Signup!']"))).isDisplayed();
-            return this;
+            if (waitForVisibleElement(By.xpath("//*[.='New User Signup!']")).isDisplayed()) {
+                return this;
+            } else {
+                return null;
+            }
         } catch (Exception e) {
             System.out.println("Элемент не найден");
-            throw new RuntimeException(e);
+            throw new NullPointerException("Текст \"New User Signup!\" не найден");
         }
     }
 
@@ -52,23 +54,19 @@ public class LoginPage extends BasePage {
 
     public boolean isUnsuccessfulLoginTextDisplayed() {
         try {
-            return getWait10().until(ExpectedConditions
-                            .visibilityOfElementLocated(By.xpath("//*[.='Your email or password is incorrect!']")))
+            return waitForVisibleElement(By.xpath("//*[.='Your email or password is incorrect!']"))
                     .isDisplayed();
         } catch (Exception e) {
-            System.out.println("Элемент не найден");
-            throw new RuntimeException(e);
+            throw new AssertionError("Текст об некорректном логине или пароле не найден");
         }
     }
 
     public boolean isUnsuccessfulRegistrationTextDisplayed() {
         try {
-            return getWait10().until(ExpectedConditions
-                            .visibilityOfElementLocated(By.xpath("//*[.='Email Address already exist!']")))
+            return waitForVisibleElement(By.xpath("//*[.='Email Address already exist!']"))
                     .isDisplayed();
         } catch (Exception e) {
-            System.out.println("Элемент не найден");
-            throw new RuntimeException(e);
+            throw new AssertionError("Текст существующем логине не найден");
         }
     }
 
@@ -116,6 +114,5 @@ public class LoginPage extends BasePage {
         waitForClickableElement(loginButton).click();
         return this;
     }
-
 
 }

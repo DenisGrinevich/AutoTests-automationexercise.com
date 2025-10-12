@@ -72,7 +72,7 @@ public class SignupPage extends BasePage {
     protected WebElement countryDropdown;
 
 
-    public String getEnterAccountText(){
+    public String getEnterAccountText() {
         return getWait10().until(ExpectedConditions.visibilityOfElementLocated(By.className("title"))).getText();
 
     }
@@ -106,14 +106,14 @@ public class SignupPage extends BasePage {
         try {
             if (emailField.getAttribute("value").equals(emailFromLogin)) {
                 return this;
-
+            }
+            else {
+                return null;
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new NullPointerException("Емейлы не совпадают");
         }
-return this;
     }
-
 
 
     public SignupPage sendPassword(String text) {
@@ -206,7 +206,7 @@ return this;
         return this;
     }
 
-    public AccountCreatedPage clickCreateAccountButton(){
+    public AccountCreatedPage clickCreateAccountButton() {
         waitForClickableElement(By.cssSelector("[data-qa='create-account']")).click();
         return new AccountCreatedPage(getDriver());
     }

@@ -21,7 +21,6 @@ public abstract class BaseModel {
 
     }
 
-
     public WebDriver getDriver() {
         return driver;
 
@@ -74,6 +73,30 @@ public abstract class BaseModel {
             return null;
         } catch (TimeoutException e) {
             System.out.println("Элемент " + element + " не найден");
+            return null;
+        }
+    }
+
+    public WebElement waitForVisibleElement(WebElement element) {
+        try {
+            return getWait5().until(ExpectedConditions.visibilityOf(element));
+        } catch (NoSuchElementException e) {
+            System.out.println("Элемент " + element + " не найден");
+            return null;
+        } catch (TimeoutException e) {
+            System.out.println("Элемент " + element + " не найден");
+            return null;
+        }
+    }
+
+    public WebElement waitForVisibleElement(By locator) {
+        try {
+            return getWait5().until(ExpectedConditions.visibilityOfElementLocated(locator));
+        } catch (NoSuchElementException e) {
+            System.out.println("Элемент " + locator + " не найден");
+            return null;
+        } catch (TimeoutException e) {
+            System.out.println("Элемент " + locator + " не найден");
             return null;
         }
     }

@@ -21,11 +21,8 @@ public class SearchTest extends BaseTest {
                 .checkSearchResultPage()
                 .checkRequestInProductName(SEARCH_REQUEST);
 
-
         Assert.assertTrue(productNames);
 
     }
-
-
 
 }
