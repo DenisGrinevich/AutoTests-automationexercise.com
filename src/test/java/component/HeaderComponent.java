@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.cart.CartPage;
 import pages.contact.ContactUsPage;
 import pages.login.LoginPage;
 import pages.main.HomePage;
@@ -38,6 +39,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//a[@href='/test_cases']")
     protected WebElement testCasesButton;
 
+    @FindBy(xpath = "//a[@href='/view_cart']")
+    protected WebElement cartButton;
+
     public HomePage clickSiteLogo() {
         waitForClickableElement(By.xpath(("//div[@class='logo pull-left']"))).click();
         return new HomePage(getDriver());
@@ -52,6 +56,11 @@ public class HeaderComponent extends BaseComponent {
         waitForClickableElement(homeButton).click();
         return new HomePage(getDriver());
 
+    }
+
+    public CartPage clickCartButton() {
+        waitForClickableElement(cartButton).click();
+        return new CartPage(getDriver());
     }
 
     public LoginPage clickSignupLoginButton() {

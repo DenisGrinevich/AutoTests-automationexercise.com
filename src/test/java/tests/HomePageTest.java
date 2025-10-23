@@ -26,6 +26,7 @@ public class HomePageTest extends BaseTest {
     public void testSubscription() {
         String alert = new HomePage(getDriver())
                 .checkHomePage()
+                .getFooter()
                 .verifySubscriptionFormName()
                 .enterEmailToSubscribe(EMAIL)
                 .clickOnSubscribeButton()
