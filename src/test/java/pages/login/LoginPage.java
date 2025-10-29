@@ -48,7 +48,7 @@ public class LoginPage extends BasePage {
 
 
     public String getLoginFormName() {
-        return getWait10().until(ExpectedConditions
+        return getWait().until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//div[@class='login-form']/h2"))).getText();
     }
 

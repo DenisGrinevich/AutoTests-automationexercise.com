@@ -73,7 +73,7 @@ public class SignupPage extends BasePage {
 
 
     public String getEnterAccountText() {
-        return getWait10().until(ExpectedConditions.visibilityOfElementLocated(By.className("title"))).getText();
+        return getWait().until(ExpectedConditions.visibilityOfElementLocated(By.className("title"))).getText();
 
     }
 

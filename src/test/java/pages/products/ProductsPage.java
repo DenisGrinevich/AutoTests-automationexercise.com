@@ -50,7 +50,7 @@ public class ProductsPage extends BasePage {
 
     public ProductsPage checkAllProductsPage() {
         try {
-            getWait10().until(ExpectedConditions
+            getWait().until(ExpectedConditions
                     .visibilityOfElementLocated(By.xpath("//h2[@class='title text-center'][contains(text(),'All Products')]"))).isDisplayed();
             return this;
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class ProductsPage extends BasePage {
     }
 
     public String checkProductName() {
-        return getWait5().until(ExpectedConditions
+        return getWait().until(ExpectedConditions
                         .visibilityOf(productName))
                 .getText().trim().toLowerCase();
     }
@@ -92,15 +92,15 @@ public class ProductsPage extends BasePage {
 
     public int PRODUCTS_QUANTITY;
 
-    public List<WebElement> getAllProductsWebElementsFromPage() {
+    public List<WebElement> getAllProductsWebElementsFromProductsPage() {
         return productCards;
     }
 
 
-    public List<WebElement> getProductsWebElementsFromPage() {
+    public List<WebElement> getProductsWebElementsFromProductsPage() {
         List<WebElement> list = new ArrayList<>();
         for (int i = 0; i <= PRODUCTS_QUANTITY - 1; i++) {
-            list.add(i, getAllProductsWebElementsFromPage().get(i));
+            list.add(i, getAllProductsWebElementsFromProductsPage().get(i));
         }
         return list;
     }
@@ -109,13 +109,13 @@ public class ProductsPage extends BasePage {
     public ProductsPage addProductToCart(int x) {
         PRODUCTS_QUANTITY = x;
         Actions actions = new Actions(getDriver());
-        for (WebElement element : getProductsWebElementsFromPage()) {
+        for (WebElement element : getProductsWebElementsFromProductsPage()) {
             ((JavascriptExecutor) driver).executeScript(
                     "arguments[0].scrollIntoView({ behavior: 'auto', block: 'center', inline: 'nearest' });",
                     element.findElement((By.xpath(".//div[@class='productinfo text-center']/a"))));
             actions
                     .moveToElement(element.findElement(By.xpath(".//div[@class='productinfo text-center']/a")))
-                    .pause(Duration.ofSeconds(1))
+                    .pause(Duration.ofMillis(500))
                     .perform();
             waitForVisibleElement(element.findElement(By.xpath(".//div[@class='overlay-content']/a"))).click();
             waitForVisibleElement(continueShoppingButton).click();
@@ -124,12 +124,20 @@ public class ProductsPage extends BasePage {
     }
 
     public List<Product> getProductsAddedToCart() {
-        System.out.println("Товары в корзине");
-        return getProductsWebElementsFromPage().stream().map(this::productParserOnProductsPage).toList();
+        try {
+            if (getProductsWebElementsFromProductsPage().get(0) != null) {
+                System.out.println("Товары добавлены в корзину");
+                return getProductsWebElementsFromProductsPage().stream().map(this::parseProduct).toList();
+            } else {
+                return null;
+            }
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Нет товаров на странице");
+        }
+
     }
 
-
-    public Product productParserOnProductsPage(WebElement element) {
+    public Product parseProduct(WebElement element) {
         int id = Integer.parseInt(element.findElement(By.xpath(".//div[@class='productinfo text-center']/a[contains(@class, 'add-to-cart')]")).getAttribute("data-product-id"));
         String name = element.findElement(By.xpath(".//div[@class='productinfo text-center']/p")).getText();
         int price = Integer.parseInt(element.findElement(By.xpath(".//div[@class='productinfo text-center']/h2")).getText().replace("Rs. ", "").trim());
@@ -137,13 +145,6 @@ public class ProductsPage extends BasePage {
     }
 
     public WebElement getProduct(int i) {
-        return getAllProductsWebElementsFromPage().get(i);
+        return getAllProductsWebElementsFromProductsPage().get(i);
     }
-
-
-    //    public ProductsPage clickContinueShoppingButton() {
-//        waitForVisibleElement(continueShoppingButton).click();
-//        return this;
-//    }
-
 }

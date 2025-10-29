@@ -43,14 +43,14 @@ public class Product extends BaseProduct {
     public int getQuantity() {
         return quantity;
     }
-
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product other = (Product) o;
 
-        boolean baseMatch = Objects.equals(this.id, other.id) &&
-                Objects.equals(this.price, other.price) &&
+        boolean baseMatch = this.id == other.id &&
+                this.price == other.price &&
                 Objects.equals(this.name, other.name);
 
         if (this.quantity != null && other.quantity != null) {

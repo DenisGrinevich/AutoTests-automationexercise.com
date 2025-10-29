@@ -34,7 +34,7 @@ public class ContactUsPage extends BasePage {
 
     public ContactUsPage checkContactFormName() {
         try {
-            getWait10().until(ExpectedConditions
+            getWait().until(ExpectedConditions
                     .visibilityOfElementLocated(By.xpath("//*[.='Get In Touch']"))).isDisplayed();
             return this;
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class ContactUsPage extends BasePage {
     public ContactUsPage isSuccessSendingTextDisplayed() {
         {
             try {
-                getWait10().until(ExpectedConditions
+                getWait().until(ExpectedConditions
                         .visibilityOfElementLocated(By.xpath("//*[.='Success! Your details have been submitted successfully.']"))).isDisplayed();
            return this;
             } catch (Exception e) {

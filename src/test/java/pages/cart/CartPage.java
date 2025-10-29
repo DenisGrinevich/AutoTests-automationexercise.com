@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CartPage extends BasePage {
+public class CartPage extends BasePage  {
     public CartPage(WebDriver driver) {
         super(driver);
     }
@@ -31,7 +31,7 @@ public class CartPage extends BasePage {
         }
     }
 
-    public List<WebElement> getAllProductsWebElementsFromPage() {
+    public List<WebElement> getAllProductsWebElementsFromCartPage() {
         try {
             if (productCards.isEmpty())
                 return null;
@@ -41,20 +41,28 @@ public class CartPage extends BasePage {
         return productCards;
     }
 
-    public List<WebElement> getProductsWebElementsFromPage() {
+    public List<WebElement> getProductsWebElementsFromCartPage() {
         List<WebElement> list = new ArrayList<>();
-        for (int i = 0; i <= getAllProductsWebElementsFromPage().size() - 1; i++) {
-            list.add(i, getAllProductsWebElementsFromPage().get(i));
+        for (int i = 0; i <= getAllProductsWebElementsFromCartPage().size() - 1; i++) {
+            list.add(i, getAllProductsWebElementsFromCartPage().get(i));
         }
         return list;
     }
 
     public List<Product> getProductsAddedToCart() {
-        System.out.println("Товары из корзины");
-        return getProductsWebElementsFromPage().stream().map(this::productParserOnProductsPage).toList();
+        try {
+            if (getProductsWebElementsFromCartPage().get(0) != null) {
+                System.out.println("Товары присутствуют в корзине");
+                return getProductsWebElementsFromCartPage().stream().map(this::parseProduct).toList();
+            } else {
+                return null;
+            }
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Нет товаров на корзине");
+        }
     }
 
-    public Product productParserOnProductsPage(WebElement element) {
+    public Product parseProduct(WebElement element) {
         int id = Integer.parseInt(element.getAttribute("id").replace("product-", "").trim());
         String name = element.findElement(By.xpath("./td[@class='cart_description']/h4/a")).getText();
         int price = Integer.parseInt(element.findElement(By.xpath("./td[@class='cart_total']/p[@class='cart_total_price']")).getText().replace("Rs. ", "").trim());
@@ -62,6 +70,4 @@ public class CartPage extends BasePage {
         return new Product(getDriver(), id, name, price, quantity);
 
     }
-
-
 }

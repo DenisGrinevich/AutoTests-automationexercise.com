@@ -37,20 +37,6 @@ public abstract class BasePage extends BaseModel {
         return driver.getCurrentUrl();
     }
 
-
-//    public void removeBannerWithJS() {
-//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
-//        try {
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].remove();", driver.findElement(By.xpath("//ins[@data-ad-status='filled']")));
-//            System.out.println("Баннер удален");
-//        } catch (NoSuchElementException e) {
-//            System.out.println("Рекламный баннер не найден — продолжаем выполнение.");
-//        } finally {
-//            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-//        }
-//
-//    }
-
 }
 
 

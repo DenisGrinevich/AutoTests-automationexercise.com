@@ -17,8 +17,8 @@ public class HomePage extends BasePage {
     @FindBy(className = "choose")
     private WebElement viewProductButton;
 
-    @FindBy(xpath = "//div[@class='features_items']//div[@class='product-image-wrapper']")
-    private List<WebElement> listOfProducts;
+    @FindBy(xpath = "//div[@class='product-image-wrapper']")
+    private List<WebElement> productCards;
 
     @FindBy(xpath = "//i[@class='fa fa-home']")
     protected WebElement homeButton;
@@ -33,19 +33,19 @@ public class HomePage extends BasePage {
     }
 
     public ProductPage clickOnViewProductButton(int productIndex) {
-        waitForClickableElement(chooseProductButton(productIndex))
+        waitForClickableElement(chooseProductCard(productIndex))
                 .click();
         return new ProductPage(getDriver());
     }
 
-    private WebElement chooseProductButton(int index) {
-        return listOfProducts.get(index - 1)
+    private WebElement chooseProductCard(int index) {
+        return productCards.get(index - 1)
                 .findElement(By.className("choose"));
     }
 
     public HomePage checkHomePage() {
         try {
-            getWait10().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[1]/a[@style='color: orange;']"))).click();
+            getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[1]/a[@style='color: orange;']"))).click();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -60,11 +60,5 @@ public class HomePage extends BasePage {
                 .checkHomePage();
         return this;
     }
-
-
-//    private int getAmountOfProducts() {
-//        return listOfProducts.size();
-//    }
-
 
 }
