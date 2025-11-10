@@ -3,7 +3,7 @@ package tests;
 import basic.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.main.HomePage;
+import pages.HomePage;
 
 public class FooterTest extends BaseTest {
     public static final String EMAIL = "test@test.com";

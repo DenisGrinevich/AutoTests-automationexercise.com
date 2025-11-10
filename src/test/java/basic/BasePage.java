@@ -14,13 +14,6 @@ public abstract class BasePage extends BaseModel {
         PageFactory.initElements(driver, this);
     }
 
-    public BasePage(WebDriver driver, String url) {
-        super(driver);
-        PageFactory.initElements(driver, this);
-
-
-    }
-
     public HeaderComponent getHeader() {
         return new HeaderComponent(getDriver());
     }

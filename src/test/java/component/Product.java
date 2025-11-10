@@ -1,6 +1,7 @@
 package component;
 
 import basic.BaseProduct;
+import basic.Logging;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Objects;
@@ -43,6 +44,7 @@ public class Product extends BaseProduct {
     public int getQuantity() {
         return quantity;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,15 +56,15 @@ public class Product extends BaseProduct {
                 Objects.equals(this.name, other.name);
 
         if (this.quantity != null && other.quantity != null) {
-            System.out.println("Id товара в листинге = " + this.id + ". Id товара в корзине = " + other.id);
-            System.out.println("Имя товара в листинге = " + this.name + ". Имя товара в корзине = " + other.name);
-            System.out.println("Цена товара в листинге = " + this.price + ". Цена товара в корзине = " + other.price);
-            System.out.println("Количество товара в листинге = " + this.quantity + ". Количество товара в корзине = " + other.quantity);
+            Logging.info("Id товара в листинге = " + this.id + ". Id товара в корзине = " + other.id);
+            Logging.info("Имя товара в листинге = " + this.name + ". Имя товара в корзине = " + other.name);
+            Logging.info("Цена товара в листинге = " + this.price + ". Цена товара в корзине = " + other.price);
+            Logging.info("Количество товара в листинге = " + this.quantity + ". Количество товара в корзине = " + other.quantity);
             return baseMatch && this.quantity.equals(other.quantity);
         } else {
-            System.out.println("Id товара в листинге = " + this.id + ". Id товара в корзине = " + other.id);
-            System.out.println("Имя товара в листинге = " + this.name + ". Имя товара в корзине = " + other.name);
-            System.out.println("Цена товара в листинге = " + this.price + ". Цена товара в корзине = " + other.price);
+            Logging.info("Id товара в листинге = " + this.id + ". Id товара в корзине = " + other.id);
+            Logging.info("Имя товара в листинге = " + this.name + ". Имя товара в корзине = " + other.name);
+            Logging.info("Цена товара в листинге = " + this.price + ". Цена товара в корзине = " + other.price);
 
             return baseMatch;
         }

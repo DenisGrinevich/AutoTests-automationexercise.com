@@ -23,11 +23,9 @@ public class FooterComponent extends BaseComponent {
     public FooterComponent verifySubscriptionFormName() {
 
         try {
-            if (waitForVisibleElement(By.xpath("//div[@class='single-widget']/*[contains(text(), 'Subscription')]"))
-                    .isDisplayed()){
+            waitForVisibleElement(By.xpath("//div[@class='single-widget']/*[contains(text(), 'Subscription')]"))
+                    .isDisplayed();
                 return this;
-            }
-            else {return null;}
         } catch (Exception e) {
             throw new NullPointerException("Название формы \"Subscription\" не отображается на странице ");
         }

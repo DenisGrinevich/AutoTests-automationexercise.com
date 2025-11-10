@@ -36,7 +36,7 @@ public abstract class BaseModel {
         try {
             return getWait().until(ExpectedConditions.elementToBeClickable(locator));
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Элемент " + locator + " не найден");
+            Logging.error("Элемент " + locator + " не найден");
             return null;
         }
     }
@@ -45,7 +45,7 @@ public abstract class BaseModel {
         try {
             return getWait().until(ExpectedConditions.elementToBeClickable(element));
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Элемент " + element + " не найден");
+            Logging.error("Элемент " + element + " не найден");
             return null;
         }
     }
@@ -54,7 +54,7 @@ public abstract class BaseModel {
         try {
             return getWait().until(ExpectedConditions.visibilityOf(element));
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Элемент " + element + " не найден");
+            Logging.error("Элемент " + element + " не найден");
             return null;
         }
     }
@@ -63,7 +63,7 @@ public abstract class BaseModel {
         try {
             return getWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Элемент " + locator + " не найден");
+            Logging.error("Элемент " + locator + " не найден");
             return null;
         }
     }

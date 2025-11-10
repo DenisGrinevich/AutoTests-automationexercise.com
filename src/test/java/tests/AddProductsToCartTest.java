@@ -4,8 +4,8 @@ import basic.BaseTest;
 import component.Product;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.main.HomePage;
-import pages.products.ProductsPage;
+import pages.HomePage;
+import pages.ProductsPage;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class AddProductsToCartTest extends BaseTest {
         List<Product> list = page
                 .getHeader()
                 .clickProductsButton()
-                .addProductToCart(3)
+                .addProductToCart(1)
                 .getProductsAddedToCart();
 
         List<Product> cartList = page
@@ -36,7 +36,8 @@ public class AddProductsToCartTest extends BaseTest {
                 .clickOnViewProductButton(1)
                 .setQuantity(QUANTITY)
                 .addProductToCart()
-                .parseProduct();
+
+                .parseProductFromProductPage();
 
         Product productInCart = new HomePage(getDriver())
                 .getHeader()

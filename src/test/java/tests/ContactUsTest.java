@@ -3,13 +3,13 @@ package tests;
 import basic.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.main.HomePage;
+import pages.HomePage;
 
 public class ContactUsTest extends BaseTest {
 
     @Test
     public void testSendContactForm() {
-        String homepage = new HomePage(getDriver())
+        boolean homepage = new HomePage(getDriver())
                 .getHeader()
                 .clickContactUsButton()
                 .checkContactFormName()
@@ -22,10 +22,9 @@ public class ContactUsTest extends BaseTest {
                 .clickOkOnAlert()
                 .isSuccessSendingTextDisplayed()
                 .clickReturnHomeButton()
-                .checkHomePage()
-                .getCurrentUrl();
+                .isHomepageDisplayed();
 
-        Assert.assertEquals(homepage, "https://automationexercise.com/");
+        Assert.assertTrue(homepage);
 
     }
 }

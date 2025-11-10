@@ -5,12 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.cart.CartPage;
-import pages.contact.ContactUsPage;
-import pages.login.LoginPage;
-import pages.main.HomePage;
-import pages.products.ProductsPage;
-import pages.testcases.TestCasesPage;
+import pages.*;
 
 public class HeaderComponent extends BaseComponent {
 
@@ -85,6 +80,11 @@ public class HeaderComponent extends BaseComponent {
     public TestCasesPage clickTestCasesButton() {
         waitForClickableElement(testCasesButton).click();
         return new TestCasesPage(getDriver());
+    }
+
+    public AccountDeletePage clickDeleteAccountButton() {
+        waitForClickableElement(deleteAccountButton).click();
+        return new AccountDeletePage(getDriver());
     }
 
 
