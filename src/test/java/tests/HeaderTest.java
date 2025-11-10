@@ -21,7 +21,8 @@ public class HeaderTest extends BaseTest {
     public void testHomeButtonTransition() {
         String mainPageUrl = new HeaderComponent(getDriver())
                 .clickProductsButton()
-                .clickOnHomeButton()
+                .getHeader()
+                .clickHomeButton()
                 .getCurrentUrl();
         Assert.assertEquals(mainPageUrl, URL_MAIN);
     }

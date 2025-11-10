@@ -2,7 +2,7 @@ package basic;
 
 import org.openqa.selenium.WebDriver;
 
-public class BaseComponent extends BaseModel{
+public abstract class BaseComponent extends BaseModel{
     public BaseComponent(WebDriver driver) {
         super(driver);
     }
