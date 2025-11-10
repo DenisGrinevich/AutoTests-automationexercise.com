@@ -3,15 +3,16 @@ package tests;
 import basic.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.main.HomePage;
+import pages.HomePage;
 
-
-import static pages.signup.SignupPage.Gender.Mr;
+import static pages.SignupPage.Gender.Mr;
 
 public class UserTest extends BaseTest {
     public static String NAME = "James";
     public static String EMAIL = "james@test.test";
     public static String PASSWORD = "james@test.test";
+
+
 
     @Test
     public void testUserRegistration() {
@@ -58,11 +59,9 @@ public class UserTest extends BaseTest {
 
         Assert.assertEquals(name, NAME);
 
-
     }
 
-
-    @Test(dependsOnMethods = "testUserRegistration")
+    @Test(dependsOnMethods = "testSuccessLogin")
     public void testSuccessLogout() {
         String text = new HomePage(getDriver())
                 .login(EMAIL, PASSWORD)
@@ -73,7 +72,7 @@ public class UserTest extends BaseTest {
         Assert.assertEquals(text, "Login to your account");
     }
 
-    @Test(dependsOnMethods = "testSuccessLogin")
+    @Test(dependsOnMethods = "testSuccessLogout")
     public void testExistingEmailRegistration() {
         boolean text = new HomePage(getDriver())
                 .getHeader()
@@ -86,7 +85,21 @@ public class UserTest extends BaseTest {
         Assert.assertTrue(text);
     }
 
-    @Test
+    @Test(dependsOnMethods = "testExistingEmailRegistration")
+    public void testDeleteUser(){
+        boolean page = new HomePage(getDriver())
+                .login(EMAIL, PASSWORD)
+                .getHeader()
+                .clickDeleteAccountButton()
+                .checkAccountDeletedPageText()
+                .clickContinueButton()
+                .isHomepageDisplayed();
+
+        Assert.assertTrue(page);
+
+    }
+
+    @Test(dependsOnMethods = "testDeleteUser")
     public void testLoginWithIncorrectData() {
 
         boolean text = new HomePage(getDriver())
@@ -99,4 +112,5 @@ public class UserTest extends BaseTest {
 
         Assert.assertTrue(text);
     }
+
 }
