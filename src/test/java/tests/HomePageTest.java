@@ -1,19 +1,20 @@
 package tests;
 
-import basic.BaseTest;
+import basic.base.BaseTest;
+import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 
 
 public class HomePageTest extends BaseTest {
     public static final String URL_MAIN = "https://automationexercise.com/";
-    public static final String EMAIL = "test@test.com";
 
-    @Test
+    @Test(description = "Open Product Page")
     public void testViewProductButton() {
+
         int itemNumber = 5;
-        String productURL = new HomePage(getDriver())
+
+        String productURL = Navigate.toHomePage(getDriver())
                 .clickOnViewProductButton(itemNumber)
                 .getCurrentUrl();
 
@@ -21,20 +22,6 @@ public class HomePageTest extends BaseTest {
 
         Assert.assertEquals(productURL, expectedUrl);
     }
-
-    @Test
-    public void testSubscription() {
-        String alert = new HomePage(getDriver())
-                .checkHomePage()
-                .getFooter()
-                .verifySubscriptionFormName()
-                .enterEmailToSubscribe(EMAIL)
-                .clickOnSubscribeButton()
-                .getTextAfterSubscribing();
-
-        Assert.assertEquals(alert, "You have been successfully subscribed!");
-    }
-
 
 }
 

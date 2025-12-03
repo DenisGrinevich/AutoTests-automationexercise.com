@@ -1,29 +1,28 @@
 package tests;
 
-import basic.BaseTest;
-import component.HeaderComponent;
+import basic.base.BaseTest;
+import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
 public class HeaderTest extends BaseTest {
-    public static final String URL_MAIN = "https://automationexercise.com/";
 
-    @Test
+    @Test(description = "Go to the Main Page by Logo")
     public void testMainLogoTransition() {
-        String mainPageUrl = new HeaderComponent(getDriver())
+        String mainPageUrl = Navigate.toLoginPage(getDriver())
+                .getHeader()
                 .clickSiteLogo()
                 .getCurrentUrl();
-        Assert.assertEquals(mainPageUrl, URL_MAIN);
+        Assert.assertEquals(mainPageUrl, Navigate.toProductsPage(getDriver()).getCurrentUrl());
     }
 
-    @Test
+    @Test(description = "Go to the Main Page by Home Button")
     public void testHomeButtonTransition() {
-        String mainPageUrl = new HeaderComponent(getDriver())
-                .clickProductsButton()
+        String mainPageUrl = Navigate.toProductsPage(getDriver())
                 .getHeader()
                 .clickHomeButton()
                 .getCurrentUrl();
-        Assert.assertEquals(mainPageUrl, URL_MAIN);
+        Assert.assertEquals(mainPageUrl, Navigate.toProductsPage(getDriver()).getCurrentUrl());
     }
 }

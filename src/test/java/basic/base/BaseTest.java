@@ -1,5 +1,6 @@
-package basic;
+package basic.base;
 
+import basic.ChromeUtils;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,10 +17,6 @@ public abstract class BaseTest {
         return driver;
     }
 
-    protected void getWeb() {
-        driver.get("https://automationexercise.com/");
-    }
-
     private void closeDriver() {
         if (driver != null) {
             driver.quit();
@@ -30,7 +27,6 @@ public abstract class BaseTest {
     @BeforeMethod
     protected void beforeMethod() {
         startDriver();
-        getWeb();
     }
 
     @AfterMethod

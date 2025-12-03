@@ -1,25 +1,25 @@
 package tests;
 
-import basic.BaseTest;
+import basic.base.BaseTest;
+import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 
 
 public class SearchTest extends BaseTest {
     public static String SEARCH_REQUEST = "Blue";
 
-    @Test
+    @Test(description = "№9: Search Product")
     public void testSearchProductName() {
 
-        boolean productNames = new HomePage(getDriver())
+        boolean productNames = Navigate.toHomePage(getDriver())
                 .checkHomePage()
                 .getHeader()
                 .clickProductsButton()
                 .checkAllProductsPage()
                 .enterProductName(SEARCH_REQUEST)
                 .checkSearchResultPage()
-                .checkRequestInProductName(SEARCH_REQUEST);
+                .checkSearchRequestInProductName(SEARCH_REQUEST);
 
         Assert.assertTrue(productNames);
 

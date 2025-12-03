@@ -1,48 +1,51 @@
 package tests;
 
-import basic.BaseTest;
-import component.Product;
+import basic.base.BaseTest;
+import basic.tools.Navigate;
+import component.products.CartProduct;
+import component.products.ProductDetailsPageProduct;
+import component.products.ProductsPageProduct;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 import pages.ProductsPage;
 
 import java.util.List;
 
 public class AddProductsToCartTest extends BaseTest {
-    @Test
+
+    @Test(description = "№12: Add Products in Cart")
     public void testAddProductsToCart() {
-        ProductsPage page = new ProductsPage(getDriver());
-        List<Product> list = page
+        ProductsPage page = Navigate.toProductsPage(getDriver());
+        List<ProductsPageProduct> list = page
                 .getHeader()
                 .clickProductsButton()
-                .addProductToCart(1)
+                .addProductToCart(2)
                 .getProductsAddedToCart();
 
-        List<Product> cartList = page
+        List<CartProduct> cartList = page
                 .getHeader()
                 .clickCartButton()
-                .getProductsAddedToCart();
+                .getAllProductsFromCart();
 
         Assert.assertTrue(list.equals(cartList));
 
     }
 
-    @Test
+    @Test(description = "№13: Verify Product quantity in Cart")
     public void testVerifyQuantityInCart(){
         final int QUANTITY=4;
 
-        Product product = new HomePage(getDriver())
+        ProductDetailsPageProduct product = Navigate.toHomePage(getDriver())
                 .clickOnViewProductButton(1)
                 .setQuantity(QUANTITY)
                 .addProductToCart()
+                .getProductAddedToCart()
+                .get(0);
 
-                .parseProductFromProductPage();
-
-        Product productInCart = new HomePage(getDriver())
+        CartProduct productInCart = Navigate.toHomePage(getDriver())
                 .getHeader()
                 .clickCartButton()
-                .getProductsAddedToCart()
+                .getAllProductsFromCart()
                 .get(0);
 
         Assert.assertEquals(product.getId(), productInCart.getId());

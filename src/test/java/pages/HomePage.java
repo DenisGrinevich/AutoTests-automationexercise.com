@@ -1,6 +1,6 @@
 package pages;
 
-import basic.BasePage;
+import basic.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public class HomePage extends BasePage {
+
     private int amountOfProducts;
 
     @FindBy(className = "choose")
@@ -26,10 +27,10 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    public ProductPage clickOnViewProductButton(int productIndex) {
+    public ProductDetailsPage clickOnViewProductButton(int productIndex) {
         waitForClickableElement(chooseProductCard(productIndex))
                 .click();
-        return new ProductPage(getDriver());
+        return new ProductDetailsPage(getDriver());
     }
 
     private WebElement chooseProductCard(int index) {
@@ -49,14 +50,7 @@ public class HomePage extends BasePage {
 
     }
 
-    public HomePage login(String email, String password) {
-        getHeader()
-                .clickSignupLoginButton()
-                .enterLogin(email).enterPassword(password)
-                .clickLoginButton()
-                .checkHomePage();
-        return this;
-    }
+
 
 
 }

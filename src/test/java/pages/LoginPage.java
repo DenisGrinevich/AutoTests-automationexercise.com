@@ -1,6 +1,6 @@
 package pages;
 
-import basic.BasePage;
+import basic.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +11,8 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
     }
+
+    public static final String URL = ("/login");
 
     @FindBy(css = "[data-qa='signup-name']")
     protected WebElement nameField;
@@ -106,6 +108,14 @@ public class LoginPage extends BasePage {
     public LoginPage clickLoginButtonWithIncorrectData() {
         waitForClickableElement(loginButton).click();
         return this;
+    }
+
+    public HomePage login(String email, String password) {
+        enterLogin(email).enterPassword(password)
+                .clickLoginButton()
+                .checkHomePage();
+        return new HomePage(getDriver());
+
     }
 
 }

@@ -1,6 +1,6 @@
 package pages;
 
-import basic.BasePage;
+import basic.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +14,6 @@ public class SignupPage extends BasePage {
     }
 
     public enum Gender {Mr, Mrs;}
-
 
     @FindBy(css = "[data-qa='name']")
     protected WebElement nameField;
