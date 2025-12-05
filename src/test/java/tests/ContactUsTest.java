@@ -1,15 +1,15 @@
 package tests;
 
-import basic.BaseTest;
+import basic.base.BaseTest;
+import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 
 public class ContactUsTest extends BaseTest {
 
-    @Test
+    @Test(description = "№6: Contact Us Form")
     public void testSendContactForm() {
-        boolean homepage = new HomePage(getDriver())
+        boolean homepage = Navigate.toHomePage(getDriver())
                 .getHeader()
                 .clickContactUsButton()
                 .checkContactFormName()

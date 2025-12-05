@@ -1,16 +1,17 @@
 package tests;
 
-import basic.BaseTest;
+import basic.base.BaseTest;
+import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 
 public class FooterTest extends BaseTest {
+
     public static final String EMAIL = "test@test.com";
 
-    @Test
+    @Test(description = "№10: Verify Subscription in home page")
     public void testSubscriptionOnHomePage() {
-        String alert = new HomePage(getDriver())
+        String alert = Navigate.toHomePage(getDriver())
                 .checkHomePage()
                 .getFooter()
                 .verifySubscriptionFormName()
@@ -21,12 +22,9 @@ public class FooterTest extends BaseTest {
         Assert.assertEquals(alert, "You have been successfully subscribed!");
     }
 
-    @Test
+    @Test(description = "№11: Verify Subscription in Cart page")
     public void testSubscriptionOnCartPage() {
-        String alert = new HomePage(getDriver())
-                .checkHomePage()
-                .getHeader()
-                .clickCartButton()
+        String alert = Navigate.toCartPage(getDriver())
                 .checkCartPage()
                 .getFooter()
                 .verifySubscriptionFormName()

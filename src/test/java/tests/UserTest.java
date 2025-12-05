@@ -1,9 +1,9 @@
 package tests;
 
-import basic.BaseTest;
+import basic.base.BaseTest;
+import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 
 import static pages.SignupPage.Gender.Mr;
 
@@ -14,9 +14,9 @@ public class UserTest extends BaseTest {
 
 
 
-    @Test
+    @Test(description = "№1: Register User")
     public void testUserRegistration() {
-        String name = new HomePage(getDriver())
+        String name = Navigate.toHomePage(getDriver())
                 .getHeader()
                 .clickSignupLoginButton()
                 .checkSignupFormName()
@@ -45,11 +45,9 @@ public class UserTest extends BaseTest {
         Assert.assertEquals(name, NAME);
     }
 
-    @Test(dependsOnMethods = "testUserRegistration")
+    @Test(description = "№2: Login User with correct email and password", dependsOnMethods = "testUserRegistration")
     public void testSuccessLogin() {
-        String name = new HomePage(getDriver())
-                .getHeader()
-                .clickSignupLoginButton()
+        String name = Navigate.toLoginPage(getDriver())
                 .checkSignupFormName()
                 .enterLogin(EMAIL)
                 .enterPassword(PASSWORD)
@@ -61,9 +59,9 @@ public class UserTest extends BaseTest {
 
     }
 
-    @Test(dependsOnMethods = "testSuccessLogin")
+    @Test(description = "№4: Logout User", dependsOnMethods = "testSuccessLogin")
     public void testSuccessLogout() {
-        String text = new HomePage(getDriver())
+        String text = Navigate.toLoginPage(getDriver())
                 .login(EMAIL, PASSWORD)
                 .getHeader()
                 .clickLogoutButton()
@@ -72,11 +70,9 @@ public class UserTest extends BaseTest {
         Assert.assertEquals(text, "Login to your account");
     }
 
-    @Test(dependsOnMethods = "testSuccessLogout")
+    @Test(description = "№5: Register User with existing email", dependsOnMethods = "testSuccessLogout")
     public void testExistingEmailRegistration() {
-        boolean text = new HomePage(getDriver())
-                .getHeader()
-                .clickSignupLoginButton()
+        boolean text = Navigate.toLoginPage(getDriver())
                 .enterName(NAME)
                 .enterEmail(EMAIL)
                 .clickSignupButtonWithIncorrectData()
@@ -85,9 +81,9 @@ public class UserTest extends BaseTest {
         Assert.assertTrue(text);
     }
 
-    @Test(dependsOnMethods = "testExistingEmailRegistration")
+    @Test(description = "Delete User", dependsOnMethods = "testExistingEmailRegistration")
     public void testDeleteUser(){
-        boolean page = new HomePage(getDriver())
+        boolean page = Navigate.toLoginPage(getDriver())
                 .login(EMAIL, PASSWORD)
                 .getHeader()
                 .clickDeleteAccountButton()
@@ -99,12 +95,10 @@ public class UserTest extends BaseTest {
 
     }
 
-    @Test(dependsOnMethods = "testDeleteUser")
+    @Test(description = "№3: Login User with incorrect email and password", dependsOnMethods = "testDeleteUser")
     public void testLoginWithIncorrectData() {
 
-        boolean text = new HomePage(getDriver())
-                .getHeader()
-                .clickSignupLoginButton()
+        boolean text = Navigate.toLoginPage(getDriver())
                 .enterLogin("qweasdzxc123yy@erewr.trter")
                 .enterPassword("aawewe")
                 .clickLoginButtonWithIncorrectData()

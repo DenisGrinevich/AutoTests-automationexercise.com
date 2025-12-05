@@ -1,68 +1,68 @@
 package pages;
 
-import basic.BasePage;
-import basic.Logging;
-import component.Product;
+import basic.base.BasePage;
+import component.products.CartProduct;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class CartPage extends BasePage {
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//tr[@id]")
-    private List<WebElement> productCards;
+    public static final String URL = ("/view_cart");
+
+    @FindBy (xpath = "//a[contains(text(), 'Proceed To Checkout')]")
+    private WebElement proceedButton;
+
+    @FindBy (xpath = "//button[contains(@class, 'close-checkout-modal')]")
+    private WebElement continueToCartButton;
+
+    @FindBy (xpath = "//div[contains(@class, 'show')]//a[contains(@href, 'login')]")
+    private WebElement loginLink;
+
 
     public CartPage checkCartPage() {
         try {
             waitForVisibleElement(By.xpath("//a[@href='/view_cart' and @style='color: orange;']")).isDisplayed();
             return this;
         } catch (Exception e) {
-            throw new NullPointerException("Открыта не страница корзины");
+            throw new AssertionError("Открыта не страница корзины");
         }
     }
 
-    public List<WebElement> getAllProductsWebElementsFromCartPage() {
-        if (productCards.isEmpty())
-            throw new IllegalStateException("В корзине нет товаров");
-
-        return productCards;
+    public CartPage clickProceedButton() {
+        waitForClickableElement(proceedButton).click();
+        return this;
     }
 
-    public List<WebElement> getProductsWebElementsFromCartPage() {
-        List<WebElement> list = new ArrayList<>();
-        for (int i = 0; i <= getAllProductsWebElementsFromCartPage().size() - 1; i++) {
-            list.add(i, getAllProductsWebElementsFromCartPage().get(i));
-        }
-        return list;
+    public LoginPage clickLoginlink() {
+        waitForClickableElement(loginLink).click();
+        return new LoginPage(getDriver());
     }
 
-    public List<Product> getProductsAddedToCart() {
-        try {
-            if (getProductsWebElementsFromCartPage().get(0) != null) {
-                Logging.info("Товары присутствуют в корзине");
-                return getProductsWebElementsFromCartPage().stream().map(this::parseProductFromCartPage).toList();
-            } else {
-                return null;
-            }
-        } catch (NullPointerException e) {
-            throw new NullPointerException("Нет товаров на корзине");
-        }
-    }
 
-    public Product parseProductFromCartPage(WebElement element) {
-        int id = Integer.parseInt(element.getAttribute("id").replace("product-", "").trim());
-        String name = element.findElement(By.xpath("./td[@class='cart_description']/h4/a")).getText();
-        int price = Integer.parseInt(element.findElement(By.xpath("./td[@class='cart_total']/p[@class='cart_total_price']")).getText().replace("Rs. ", "").trim());
-        int quantity = Integer.parseInt(element.findElement(By.xpath("./td[@class='cart_quantity']/button")).getText());
-        return new Product(getDriver(), id, name, price, quantity);
+    public List<CartProduct> getAllProductsFromCart(){
+        List<WebElement> rows = getDriver().findElements(By.xpath("//tr[@id]"));
+        if (rows.isEmpty())
+            throw new NullPointerException("В корзине нет товаров");
+
+        return rows.stream()
+                .map(row -> new CartProduct(row, getDriver()))
+                .collect(Collectors.toList());
 
     }
+
+    public CartPage clickOnDeleteButton(CartProduct product){
+        product.clickOnDeleteButton();
+        return this;
+    }
+
 }

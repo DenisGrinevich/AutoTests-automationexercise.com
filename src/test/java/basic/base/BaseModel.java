@@ -1,5 +1,6 @@
-package basic;
+package basic.base;
 
+import basic.tools.Logging;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -62,6 +63,15 @@ public abstract class BaseModel {
     public WebElement waitForVisibleElement(By locator) {
         try {
             return getWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
+        } catch (NoSuchElementException | TimeoutException e) {
+            Logging.error("Элемент " + locator + " не найден");
+            return null;
+        }
+    }
+
+    public WebElement waitForLoadedElement(By locator) {
+        try {
+            return getWait().until(ExpectedConditions.presenceOfElementLocated(locator));
         } catch (NoSuchElementException | TimeoutException e) {
             Logging.error("Элемент " + locator + " не найден");
             return null;

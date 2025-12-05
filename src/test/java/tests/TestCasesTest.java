@@ -1,19 +1,20 @@
 package tests;
 
-import basic.BaseTest;
+import basic.base.BaseTest;
+import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 
 public class TestCasesTest extends BaseTest {
 
-    @Test
+    @Test(description = "№7: Verify Test Cases Page")
     public void testCheckTestCasesPage() {
-        boolean page = new HomePage(getDriver())
+        boolean page = Navigate.toHomePage(getDriver())
                 .getHeader()
                 .clickTestCasesButton()
                 .checkTestCasesPage();
 
         Assert.assertTrue(page);
     }
+
 }
