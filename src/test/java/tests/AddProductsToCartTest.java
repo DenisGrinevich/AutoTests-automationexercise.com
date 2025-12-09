@@ -7,6 +7,7 @@ import component.products.ProductDetailsPageProduct;
 import component.products.ProductsPageProduct;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.CartPage;
 import pages.ProductsPage;
 
 import java.util.List;
@@ -17,8 +18,6 @@ public class AddProductsToCartTest extends BaseTest {
     public void testAddProductsToCart() {
         ProductsPage page = Navigate.toProductsPage(getDriver());
         List<ProductsPageProduct> list = page
-                .getHeader()
-                .clickProductsButton()
                 .addProductToCart(2)
                 .getProductsAddedToCart();
 
@@ -50,5 +49,21 @@ public class AddProductsToCartTest extends BaseTest {
 
         Assert.assertEquals(product.getId(), productInCart.getId());
         Assert.assertEquals(productInCart.getQuantity(), QUANTITY);
+    }
+
+    @Test(description = "№17: Remove Products From Cart")
+    public void testRemoveProductFromCart(){
+        final int productId = 1;
+        ProductsPage page = Navigate.toProductsPage(getDriver())
+                .addProductToCart(2);
+
+        CartPage cart = Navigate.toCartPage(getDriver());
+
+        Boolean beforeRemoving = cart.isProductInCart(productId);
+        Boolean afterRemoving = cart.removeProduct(productId)
+                        .isProductInCart(productId);
+
+        Assert.assertTrue(beforeRemoving, "Товара c id " + productId + " отсутствует в корзине");
+        Assert.assertFalse(afterRemoving, "Товара c id " + productId + " не удален из корзины");
     }
 }

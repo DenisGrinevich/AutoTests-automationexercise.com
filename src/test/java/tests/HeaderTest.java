@@ -14,7 +14,7 @@ public class HeaderTest extends BaseTest {
                 .getHeader()
                 .clickSiteLogo()
                 .getCurrentUrl();
-        Assert.assertEquals(mainPageUrl, Navigate.toProductsPage(getDriver()).getCurrentUrl());
+        Assert.assertEquals(mainPageUrl, Navigate.toHomePage(getDriver()).getCurrentUrl());
     }
 
     @Test(description = "Go to the Main Page by Home Button")
@@ -23,6 +23,6 @@ public class HeaderTest extends BaseTest {
                 .getHeader()
                 .clickHomeButton()
                 .getCurrentUrl();
-        Assert.assertEquals(mainPageUrl, Navigate.toProductsPage(getDriver()).getCurrentUrl());
+        Assert.assertEquals(mainPageUrl, Navigate.toHomePage(getDriver()).getCurrentUrl());
     }
 }

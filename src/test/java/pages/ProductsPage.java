@@ -18,7 +18,7 @@ public class ProductsPage extends BasePage {
         super(driver);
     }
 
-    public static final String URL = ("/product");
+    public static final String URL = ("/products");
     private int PRODUCTS_QUANTITY;
     private List<ProductsPageProduct> addedProducts = new ArrayList<>();
 
@@ -30,8 +30,6 @@ public class ProductsPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='modal-footer']/button")
     private WebElement continueShoppingButton;
-
-
 
 
     public ProductsPage enterProductName(String searchRequest) {
@@ -86,21 +84,6 @@ public class ProductsPage extends BasePage {
                 .collect(Collectors.toList());
 
     }
-
-//    public List<WebElement> getAllProductsWebElementsFromProductsPage() {
-//        if (productCards.isEmpty())
-//            throw new IllegalStateException("В корзине нет товаров");
-//
-//        return productCards;
-//    }
-//
-//    private List<WebElement> getProductsWebElementsFromProductsPage() {
-//        List<WebElement> list = new ArrayList<>();
-//        for (int i = 0; i <= PRODUCTS_QUANTITY - 1; i++) {
-//            list.add(i, getAllProductsWebElementsFromProductsPage().get(i));
-//        }
-//        return list;
-//    }
 
     public ProductsPage addProductToCart(int x) {
         PRODUCTS_QUANTITY = x;
