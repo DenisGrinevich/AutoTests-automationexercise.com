@@ -1,6 +1,7 @@
 package pages;
 
 import basic.base.BasePage;
+import basic.tools.Logging;
 import component.products.CartProduct;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,13 +20,13 @@ public class CartPage extends BasePage {
 
     public static final String URL = ("/view_cart");
 
-    @FindBy (xpath = "//a[contains(text(), 'Proceed To Checkout')]")
+    @FindBy(xpath = "//a[contains(text(), 'Proceed To Checkout')]")
     private WebElement proceedButton;
 
-    @FindBy (xpath = "//button[contains(@class, 'close-checkout-modal')]")
+    @FindBy(xpath = "//button[contains(@class, 'close-checkout-modal')]")
     private WebElement continueToCartButton;
 
-    @FindBy (xpath = "//div[contains(@class, 'show')]//a[contains(@href, 'login')]")
+    @FindBy(xpath = "//div[contains(@class, 'show')]//a[contains(@href, 'login')]")
     private WebElement loginLink;
 
 
@@ -49,7 +50,7 @@ public class CartPage extends BasePage {
     }
 
 
-    public List<CartProduct> getAllProductsFromCart(){
+    public List<CartProduct> getAllProductsFromCart() {
         List<WebElement> rows = getDriver().findElements(By.xpath("//tr[@id]"));
         if (rows.isEmpty())
             throw new NullPointerException("В корзине нет товаров");
@@ -57,12 +58,22 @@ public class CartPage extends BasePage {
         return rows.stream()
                 .map(row -> new CartProduct(row, getDriver()))
                 .collect(Collectors.toList());
-
     }
 
-    public CartPage clickOnDeleteButton(CartProduct product){
+    public CartPage removeProduct(int productId) {
+        CartProduct product = getAllProductsFromCart().stream()
+                .filter(p -> p.getId() == productId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Товар с id=" + productId + " не найден в корзине"));
         product.clickOnDeleteButton();
+        waitForInvisibleElement((By.id("product-" + productId)));
+        Logging.info("Товар с id = " + productId + " удален из корзины");
         return this;
     }
 
+    public boolean isProductInCart(int productId) {
+        return getAllProductsFromCart()
+                .stream()
+                .anyMatch(p -> p.getId() == productId);
+    }
 }

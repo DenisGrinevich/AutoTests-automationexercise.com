@@ -25,7 +25,6 @@ public abstract class BaseModel {
 
     }
 
-
     protected WebDriverWait getWait() {
         if (wait == null) {
             wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
@@ -77,4 +76,13 @@ public abstract class BaseModel {
             return null;
         }
     }
+
+    public void waitForInvisibleElement(By locator) {
+        try {
+            getWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
+        } catch (Exception e) {
+            Logging.error("Элемент " + locator + "найден");
+        }
+    }
+
 }

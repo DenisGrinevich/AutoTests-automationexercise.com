@@ -24,12 +24,12 @@ public abstract class BaseTest {
         }
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun= true)
     protected void beforeMethod() {
         startDriver();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun= true)
     protected void afterMethod() {
         closeDriver();
     }

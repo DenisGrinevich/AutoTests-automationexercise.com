@@ -49,7 +49,6 @@ public class CartProduct extends BaseProduct {
 
     public void clickOnDeleteButton() {
         waitForClickableElement(container.findElement(By.className("cart_quantity_delete"))).click();
-
     }
 
 }
