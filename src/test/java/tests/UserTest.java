@@ -14,7 +14,7 @@ public class UserTest extends BaseTest {
 
 
 
-    @Test(description = "№1: Register User")
+    @Test(description = "№1: Register User", groups = {"smoke"})
     public void testUserRegistration() {
         String name = Navigate.toHomePage(getDriver())
                 .getHeader()
@@ -45,7 +45,7 @@ public class UserTest extends BaseTest {
         Assert.assertEquals(name, NAME);
     }
 
-    @Test(description = "№2: Login User with correct email and password", dependsOnMethods = "testUserRegistration")
+    @Test(description = "№2: Login User with correct email and password", dependsOnMethods = "testUserRegistration", groups = {"smoke"})
     public void testSuccessLogin() {
         String name = Navigate.toLoginPage(getDriver())
                 .checkSignupFormName()
@@ -59,7 +59,7 @@ public class UserTest extends BaseTest {
 
     }
 
-    @Test(description = "№4: Logout User", dependsOnMethods = "testSuccessLogin")
+    @Test(description = "№4: Logout User", dependsOnMethods = "testSuccessLogin", groups = {"smoke"})
     public void testSuccessLogout() {
         String text = Navigate.toLoginPage(getDriver())
                 .login(EMAIL, PASSWORD)
@@ -70,7 +70,7 @@ public class UserTest extends BaseTest {
         Assert.assertEquals(text, "Login to your account");
     }
 
-    @Test(description = "№5: Register User with existing email", dependsOnMethods = "testSuccessLogout")
+    @Test(description = "№5: Register User with existing email", dependsOnMethods = "testSuccessLogout", groups = {"smoke"})
     public void testExistingEmailRegistration() {
         boolean text = Navigate.toLoginPage(getDriver())
                 .enterName(NAME)
@@ -81,7 +81,7 @@ public class UserTest extends BaseTest {
         Assert.assertTrue(text);
     }
 
-    @Test(description = "Delete User", dependsOnMethods = "testExistingEmailRegistration")
+    @Test(description = "Delete User", dependsOnMethods = "testExistingEmailRegistration", groups = {"smoke"})
     public void testDeleteUser(){
         boolean page = Navigate.toLoginPage(getDriver())
                 .login(EMAIL, PASSWORD)
@@ -95,7 +95,7 @@ public class UserTest extends BaseTest {
 
     }
 
-    @Test(description = "№3: Login User with incorrect email and password", dependsOnMethods = "testDeleteUser")
+    @Test(description = "№3: Login User with incorrect email and password", dependsOnMethods = "testDeleteUser", groups = {"smoke"})
     public void testLoginWithIncorrectData() {
 
         boolean text = Navigate.toLoginPage(getDriver())

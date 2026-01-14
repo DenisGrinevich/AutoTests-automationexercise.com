@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AddProductsToCartTest extends BaseTest {
 
-    @Test(description = "№12: Add Products in Cart")
+    @Test(description = "№12: Add Products in Cart", groups = {"smoke"})
     public void testAddProductsToCart() {
         ProductsPage page = Navigate.toProductsPage(getDriver());
         List<ProductsPageProduct> list = page
@@ -30,7 +30,7 @@ public class AddProductsToCartTest extends BaseTest {
 
     }
 
-    @Test(description = "№13: Verify Product quantity in Cart")
+    @Test(description = "№13: Verify Product quantity in Cart", groups = {"smoke"})
     public void testVerifyQuantityInCart(){
         final int QUANTITY=4;
 
@@ -51,7 +51,7 @@ public class AddProductsToCartTest extends BaseTest {
         Assert.assertEquals(productInCart.getQuantity(), QUANTITY);
     }
 
-    @Test(description = "№17: Remove Products From Cart")
+    @Test(description = "№17: Remove Products From Cart", groups = {"smoke"})
     public void testRemoveProductFromCart(){
         final int productId = 1;
         ProductsPage page = Navigate.toProductsPage(getDriver())
