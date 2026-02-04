@@ -2,17 +2,17 @@ package tests;
 
 import basic.base.BaseTest;
 import basic.tools.Navigate;
+import basic.tools.UserFactory;
+import component.users.User;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static pages.SignupPage.Gender.Mr;
-
 public class UserTest extends BaseTest {
-    public static String NAME = "James";
-    public static String EMAIL = "james@test.test";
-    public static String PASSWORD = "james@test.test";
+    User user = UserFactory.defaultUser();
 
-
+    public String EMAIL = user.getEmail();
+    public String NAME = user.getName();
+    public String PASSWORD = user.getPassword();
 
     @Test(description = "№1: Register User", groups = {"smoke"})
     public void testUserRegistration() {
@@ -23,26 +23,14 @@ public class UserTest extends BaseTest {
                 .enterName(NAME)
                 .enterEmail(EMAIL)
                 .clickSignupButton()
-
-                .selectGenderButton(Mr)
-                .checkEmail(EMAIL)
-                .checkName(NAME)
-                .sendPassword(PASSWORD)
-                .chooseDay("12").chooseMonth("5").chooseYear("1995")
-                .selectNewsletterCheckbox().selectOffersCheckbox()
-                .sendFirstName("fast").sendLastName("boy").sendCompany("JJJ")
-                .sendAddress("FGFG").sendSecondAddress("QWEWE")
-                .chooseCountry("India").sendState("CAL").sendCity("NY")
-                .sendZipcode("123123123")
-                .sendMobileNumber("666333")
-
+                .fillFullForm(user)
                 .clickCreateAccountButton()
                 .clickContinueButton()
                 .checkHomePage()
                 .getHeader()
                 .getUserName();
 
-        Assert.assertEquals(name, NAME);
+        Assert.assertEquals(name, user.getName());
     }
 
     @Test(description = "№2: Login User with correct email and password", dependsOnMethods = "testUserRegistration", groups = {"smoke"})

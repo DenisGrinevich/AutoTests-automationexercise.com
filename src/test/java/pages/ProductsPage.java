@@ -105,13 +105,6 @@ public class ProductsPage extends BasePage {
 
         return addedProducts;
     }
-//
-//    public Product parseProductFromProductsPage(WebElement element) {
-//        int id = Integer.parseInt(element.findElement(By.xpath(".//div[@class='productinfo text-center']/a[contains(@class, 'add-to-cart')]")).getAttribute("data-product-id"));
-//        String name = element.findElement(By.xpath(".//div[@class='productinfo text-center']/p")).getText();
-//        int price = Integer.parseInt(element.findElement(By.xpath(".//div[@class='productinfo text-center']/h2")).getText().replace("Rs. ", "").trim());
-//        return new Product(getDriver(), id, name, price);
-//    }
 
     public ProductsPageProduct getProduct(int i) {
         return getProductsAddedToCart().get(i);

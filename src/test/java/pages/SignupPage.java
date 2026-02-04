@@ -1,6 +1,7 @@
 package pages;
 
 import basic.base.BasePage;
+import component.users.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,7 +14,6 @@ public class SignupPage extends BasePage {
         super(driver);
     }
 
-    public enum Gender {Mr, Mrs;}
 
     @FindBy(css = "[data-qa='name']")
     protected WebElement nameField;
@@ -75,17 +75,17 @@ public class SignupPage extends BasePage {
 
     }
 
-    public SignupPage selectGenderButton(Gender gender) {
-        waitForClickableElement(By.xpath("//input[@type='radio' and @value = '" + gender + "']")).click();
+    public SignupPage selectGenderButton(User user) {
+        waitForClickableElement(By.xpath("//input[@type='radio' and @value = '" + user.getGender() + "']")).click();
         return this;
     }
 
-    public SignupPage checkName(String nameFromLogin) {
+    public SignupPage checkName(User user) {
         try {
-            if (nameField.getAttribute("value").equals(nameFromLogin)) {
+            if (nameField.getAttribute("value").equals(user.getName())) {
                 return this;
             } else {
-                sendName(nameFromLogin);
+                sendName(user);
                 return this;
             }
         } catch (Exception e) {
@@ -94,97 +94,97 @@ public class SignupPage extends BasePage {
 
     }
 
-    public SignupPage sendName(String name) {
-        nameField.sendKeys(name);
+    public SignupPage sendName(User user) {
+        nameField.sendKeys(user.getName());
         return this;
     }
 
 
-    public SignupPage checkEmail(String emailFromLogin) {
-        if (!emailField.getAttribute("value").equals(emailFromLogin)) {
+    public SignupPage checkEmail(User user) {
+        if (!emailField.getAttribute("value").equals(user.getEmail())) {
             throw new AssertionError("Емейлы не совпадают");
         }
         return this;
     }
 
 
-    public SignupPage sendPassword(String text) {
+    public SignupPage sendPassword(User user) {
         passwordField.clear();
-        passwordField.sendKeys(text);
+        passwordField.sendKeys(user.getPassword());
         return this;
     }
 
-    public SignupPage sendFirstName(String text) {
+    public SignupPage sendFirstName(User user) {
         firstNameField.clear();
-        firstNameField.sendKeys(text);
+        firstNameField.sendKeys(user.getFirstName());
         return this;
     }
 
-    public SignupPage sendLastName(String text) {
+    public SignupPage sendLastName(User user) {
         lastNameField.clear();
-        lastNameField.sendKeys(text);
+        lastNameField.sendKeys(user.getLastName());
         return this;
     }
 
-    public SignupPage sendCompany(String text) {
+    public SignupPage sendCompany(User user) {
         companyField.clear();
-        companyField.sendKeys(text);
+        companyField.sendKeys(user.getCompany());
         return this;
     }
 
-    public SignupPage sendAddress(String text) {
+    public SignupPage sendAddress(User user) {
         addressField.clear();
-        addressField.sendKeys(text);
+        addressField.sendKeys(user.getAddress());
         return this;
     }
 
-    public SignupPage sendSecondAddress(String text) {
+    public SignupPage sendSecondAddress(User user) {
         secondAddressField.clear();
-        secondAddressField.sendKeys(text);
+        secondAddressField.sendKeys(user.getAddress2());
         return this;
     }
 
-    public SignupPage sendState(String text) {
+    public SignupPage sendState(User user) {
         stateField.clear();
-        stateField.sendKeys(text);
+        stateField.sendKeys(user.getState());
         return this;
     }
 
-    public SignupPage sendCity(String text) {
+    public SignupPage sendCity(User user) {
         citydField.clear();
-        citydField.sendKeys(text);
+        citydField.sendKeys(user.getCity());
         return this;
     }
 
-    public SignupPage sendZipcode(String text) {
+    public SignupPage sendZipcode(User user) {
         zipCodeField.clear();
-        zipCodeField.sendKeys(text);
+        zipCodeField.sendKeys(user.getZipcode());
         return this;
     }
 
-    public SignupPage sendMobileNumber(String text) {
+    public SignupPage sendMobileNumber(User user) {
         mobileNumberField.clear();
-        mobileNumberField.sendKeys(text);
+        mobileNumberField.sendKeys(user.getMobileNumber());
         return this;
     }
 
-    public SignupPage chooseDay(String value) {
-        new Select(dayDropdown).selectByValue(value);
+    public SignupPage chooseDay(User user) {
+        new Select(dayDropdown).selectByValue(user.getDayOfBirth());
         return this;
     }
 
-    public SignupPage chooseMonth(String value) {
-        new Select(monthDropdown).selectByValue(value);
+    public SignupPage chooseMonth(User user) {
+        new Select(monthDropdown).selectByValue(user.getMonthOfBirth());
         return this;
     }
 
-    public SignupPage chooseYear(String value) {
-        new Select(yearDropdown).selectByValue(value);
+    public SignupPage chooseYear(User user) {
+        new Select(yearDropdown).selectByValue(user.getYearOfBirth());
         return this;
     }
 
-    public SignupPage chooseCountry(String value) {
-        new Select(countryDropdown).selectByValue(value);
+    public SignupPage chooseCountry(User user) {
+        new Select(countryDropdown).selectByValue(user.getCountry());
         return this;
     }
 
@@ -195,6 +195,20 @@ public class SignupPage extends BasePage {
 
     public SignupPage selectNewsletterCheckbox() {
         newsletterCheckbox.click();
+        return this;
+    }
+    public SignupPage fillFullForm(User user){
+        selectGenderButton(user)
+                .checkEmail(user)
+                .checkName(user)
+                .sendPassword(user)
+                .chooseDay(user).chooseMonth(user).chooseYear(user)
+                .selectNewsletterCheckbox().selectOffersCheckbox()
+                .sendFirstName(user).sendLastName(user).sendCompany(user)
+                .sendAddress(user).sendSecondAddress(user)
+                .chooseCountry(user).sendState(user).sendCity(user)
+                .sendZipcode(user)
+                .sendMobileNumber(user);
         return this;
     }
 

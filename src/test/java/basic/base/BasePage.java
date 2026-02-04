@@ -2,6 +2,7 @@ package basic.base;
 
 import component.FooterComponent;
 import component.HeaderComponent;
+import component.LeftSidebarComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -17,6 +18,11 @@ public abstract class BasePage extends BaseModel {
     public HeaderComponent getHeader() {
         return new HeaderComponent(getDriver());
     }
+
+    public LeftSidebarComponent getSidebar() {
+        return new LeftSidebarComponent(getDriver());
+    }
+
 
     public FooterComponent getFooter() {
         return new FooterComponent(getDriver());
