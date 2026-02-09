@@ -1,6 +1,7 @@
 package pages;
 
 import basic.base.BasePage;
+import basic.tools.Logging;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,8 +12,6 @@ import java.util.List;
 
 public class HomePage extends BasePage {
 
-    private int amountOfProducts;
-
     @FindBy(className = "choose")
     private WebElement viewProductButton;
 
@@ -22,9 +21,11 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//i[@class='fa fa-home']")
     protected WebElement homeButton;
 
+    private int amountOfProducts;
 
     public HomePage(WebDriver driver) {
         super(driver);
+        Logging.info("Открыта главная страница");
     }
 
     public ProductDetailsPage clickOnViewProductButton(int productIndex) {

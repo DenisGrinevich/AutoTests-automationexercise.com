@@ -11,6 +11,7 @@ import java.time.Duration;
 
 
 public class ProductsPageProduct extends BaseProduct {
+
     private final WebElement container;
     private int id;
     private String name;

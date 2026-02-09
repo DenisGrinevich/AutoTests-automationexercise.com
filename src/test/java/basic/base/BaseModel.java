@@ -10,19 +10,17 @@ import java.time.Duration;
 
 
 public abstract class BaseModel {
+
     protected WebDriver driver;
     private WebDriverWait wait;
-
 
     public BaseModel(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-
     }
 
     public WebDriver getDriver() {
         return driver;
-
     }
 
     protected WebDriverWait getWait() {
@@ -84,5 +82,4 @@ public abstract class BaseModel {
             Logging.error("Элемент " + locator + "найден");
         }
     }
-
 }

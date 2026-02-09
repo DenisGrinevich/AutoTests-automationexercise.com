@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 
 public class CartProduct extends BaseProduct {
+
     private final WebElement container;
     private int id;
     private String name;

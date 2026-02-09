@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.BrandPage;
 import pages.CategoryPage;
 
 public class LeftSidebarComponent extends BaseComponent {
@@ -14,6 +15,9 @@ public class LeftSidebarComponent extends BaseComponent {
 
     @FindBy(xpath = "//div[@id = 'accordian']")
     private WebElement categoryBar;
+
+    @FindBy(xpath = "//div[@class = 'brands-name']")
+    private WebElement brandBar;
 
     @FindBy (xpath = "//div[@class = 'panel-collapse in']/div[@class = 'panel-body']")
     private WebElement subCategoryBar;
@@ -34,8 +38,16 @@ public class LeftSidebarComponent extends BaseComponent {
 
     public CategoryPage clickOnSubCategory(String subCategoryName){
         waitForClickableElement(getSubCategory(subCategoryName)).click();
+
         return new CategoryPage(getDriver());
     }
 
+    private WebElement getBrand(String brandName){
+        return brandBar.findElement(By.xpath(".//a[text()[normalize-space()='" + brandName + "']]"));
+    }
 
+    public BrandPage clickOnBrand(String brandName){
+        waitForClickableElement(getBrand(brandName)).click();
+        return new BrandPage(getDriver());
+    }
 }

@@ -11,19 +11,19 @@ import java.util.List;
 
 public class ProductDetailsPage extends BasePage {
 
-    public ProductDetailsPage(WebDriver driver) {
-        super(driver);
-    }
-
-    ProductDetailsPageProduct product = new ProductDetailsPageProduct(getDriver());
-
-    private List<ProductDetailsPageProduct> addedProducts = new ArrayList<>();
-
     @FindBy(xpath = "//button[contains(@class, 'cart')]")
     private WebElement addToCartButton;
 
     @FindBy(xpath = "//div[@class='modal-footer']/button")
     private WebElement continueShoppingButton;
+
+    private List<ProductDetailsPageProduct> addedProducts = new ArrayList<>();
+
+    ProductDetailsPageProduct product = new ProductDetailsPageProduct(getDriver());
+
+    public ProductDetailsPage(WebDriver driver) {
+        super(driver);
+    }
 
     public ProductDetailsPage addProductToCart(){
         waitForClickableElement(addToCartButton);

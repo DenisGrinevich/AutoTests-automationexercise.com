@@ -8,10 +8,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class PaymentPage extends BasePage {
 
-    public PaymentPage(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy (css = "[name='name_on_card']")
     private WebElement nameField;
 
@@ -29,6 +25,10 @@ public class PaymentPage extends BasePage {
 
     @FindBy (css = "button.submit-button")
     private WebElement confirmButton;
+
+    public PaymentPage(WebDriver driver) {
+        super(driver);
+    }
 
     public PaymentPage checkPaymentPage() {
         try {

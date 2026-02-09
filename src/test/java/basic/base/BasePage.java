@@ -9,7 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public abstract class BasePage extends BaseModel {
 
-
     public BasePage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -22,7 +21,6 @@ public abstract class BasePage extends BaseModel {
     public LeftSidebarComponent getSidebar() {
         return new LeftSidebarComponent(getDriver());
     }
-
 
     public FooterComponent getFooter() {
         return new FooterComponent(getDriver());

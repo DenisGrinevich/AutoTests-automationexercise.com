@@ -1,6 +1,7 @@
 package pages;
 
 import basic.base.BasePage;
+import basic.tools.Logging;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,11 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
-    public LoginPage(WebDriver driver) {
-        super(driver);
-    }
-
-    public static final String URL = ("/login");
 
     @FindBy(css = "[data-qa='signup-name']")
     protected WebElement nameField;
@@ -32,6 +28,12 @@ public class LoginPage extends BasePage {
     @FindBy(css = "[data-qa='login-button']")
     protected WebElement loginButton;
 
+    public static final String URL = ("/login");
+
+    public LoginPage(WebDriver driver) {
+        super(driver);
+        Logging.info("Открыта страница логина");
+    }
 
     public LoginPage checkSignupFormName() {
 
@@ -61,7 +63,7 @@ public class LoginPage extends BasePage {
             return waitForVisibleElement(By.xpath("//*[.='Email Address already exist!']"))
                     .isDisplayed();
         } catch (Exception e) {
-            throw new AssertionError("Текст существующем логине не найден");
+            throw new AssertionError("Текст о существующем логине не найден");
         }
     }
 

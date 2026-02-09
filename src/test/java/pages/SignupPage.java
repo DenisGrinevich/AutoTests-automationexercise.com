@@ -1,6 +1,7 @@
 package pages;
 
 import basic.base.BasePage;
+import basic.tools.Logging;
 import component.users.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,10 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public class SignupPage extends BasePage {
-    public SignupPage(WebDriver driver) {
-        super(driver);
-    }
-
 
     @FindBy(css = "[data-qa='name']")
     protected WebElement nameField;
@@ -69,6 +66,10 @@ public class SignupPage extends BasePage {
     @FindBy(css = "[data-qa='country']")
     protected WebElement countryDropdown;
 
+    public SignupPage(WebDriver driver) {
+        super(driver);
+        Logging.info("Открыта страница регистрации пользователя");
+    }
 
     public String getEnterAccountText() {
         return getWait().until(ExpectedConditions.visibilityOfElementLocated(By.className("title"))).getText();

@@ -1,6 +1,7 @@
 package pages;
 
 import basic.base.BasePage;
+import basic.tools.Logging;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,9 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ContactUsPage extends BasePage {
-    public ContactUsPage(WebDriver driver) {
-        super(driver);
-    }
 
     @FindBy(css = "[data-qa='name']")
     protected WebElement nameField;
@@ -30,6 +28,11 @@ public class ContactUsPage extends BasePage {
 
     @FindBy(xpath = "//input[@name='upload_file']")
     protected WebElement uploadButton;
+
+    public ContactUsPage(WebDriver driver) {
+        super(driver);
+        Logging.info("Открыта страница контактов");
+    }
 
     public ContactUsPage checkContactFormName() {
         try {

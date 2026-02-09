@@ -4,6 +4,7 @@ import basic.base.BaseTest;
 import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.BrandPage;
 import pages.CategoryPage;
 
 
@@ -44,6 +45,26 @@ public class HomePageTest extends BaseTest {
                 clickOnCategory(SECOND_SUBCATEGORY);
 
         Assert.assertTrue(checkPage.checkCategoryPage(SECOND_CATEGORY, SECOND_SUBCATEGORY));
+    }
+
+    @Test(description = "Test Case №19: View & Cart Brand Products")
+    public void testBrandPage(){
+        final String FIRST_BRAND= "Polo";
+        final String SECOND_BRAND = "Madame";
+
+        BrandPage brandPage = Navigate.toHomePage(getDriver())
+                .getSidebar()
+                .clickOnBrand(FIRST_BRAND);
+
+        Assert.assertTrue(brandPage.checkBrandPage(FIRST_BRAND));
+        Assert.assertFalse(brandPage.getAllProductsFromProductPage().isEmpty());
+
+        brandPage
+                .getSidebar()
+                .clickOnBrand(SECOND_BRAND);
+
+        Assert.assertTrue(brandPage.checkBrandPage(SECOND_BRAND));
+        Assert.assertFalse(brandPage.getAllProductsFromProductPage().isEmpty());
     }
 
 }

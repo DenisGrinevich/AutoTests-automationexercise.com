@@ -1,26 +1,16 @@
 package pages;
 
-import basic.base.BasePage;
+import basic.base.BaseProductsPage;
 import basic.tools.Logging;
-import component.products.ProductsPageProduct;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class ProductsPage extends BasePage {
-    public ProductsPage(WebDriver driver) {
-        super(driver);
-    }
-
-    public static final String URL = ("/products");
-    private int PRODUCTS_QUANTITY;
-    private List<ProductsPageProduct> addedProducts = new ArrayList<>();
+public class ProductsPage extends BaseProductsPage<ProductsPage> {
 
     @FindBy(xpath = "//input[@id='search_product']")
     private WebElement searchBox;
@@ -31,6 +21,17 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//div[@class='modal-footer']/button")
     private WebElement continueShoppingButton;
 
+    public static final String URL = ("/products");
+
+    public ProductsPage(WebDriver driver) {
+        super(driver);
+        Logging.info("Открыта страница со всеми продуктами");
+    }
+
+    @Override
+    protected ProductsPage self() {
+        return this;
+    }
 
     public ProductsPage enterProductName(String searchRequest) {
         waitForVisibleElement(searchBox)
@@ -72,41 +73,4 @@ public class ProductsPage extends BasePage {
         }
     }
 
-
-    public List<ProductsPageProduct> getAllProductsFromProductPage(){
-        List<WebElement> rows = getDriver().findElements(By.xpath(
-                "//div[@class='product-image-wrapper']"));
-        if (rows.isEmpty())
-            throw new NullPointerException("На странице нет товаров");
-
-        return rows.stream()
-                .map(row -> new ProductsPageProduct(row, getDriver()))
-                .collect(Collectors.toList());
-
-    }
-
-    public ProductsPage addProductToCart(int x) {
-        PRODUCTS_QUANTITY = x;
-
-        for (int i = 0; i <= PRODUCTS_QUANTITY - 1; i++) {
-            ProductsPageProduct product = getAllProductsFromProductPage().get(i);
-            product.scrollAndHoverToProduct();
-            product.clickOnAddToCartButton();
-            waitForVisibleElement(continueShoppingButton).click();
-            addedProducts.add(product);
-            Logging.info("Товар добавлен в корзину");
-        }
-        return this;
-    }
-
-    public List<ProductsPageProduct> getProductsAddedToCart() {
-        if (addedProducts.get(0) == null)
-            throw new IllegalStateException("Нет товаров на в корзине");
-
-        return addedProducts;
-    }
-
-    public ProductsPageProduct getProduct(int i) {
-        return getProductsAddedToCart().get(i);
-    }
 }

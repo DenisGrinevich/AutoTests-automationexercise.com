@@ -14,10 +14,6 @@ import java.util.stream.Collectors;
 
 public class CartPage extends BasePage {
 
-    public CartPage(WebDriver driver) {
-        super(driver);
-    }
-
     public static final String URL = ("/view_cart");
 
     @FindBy(xpath = "//a[contains(text(), 'Proceed To Checkout')]")
@@ -29,6 +25,10 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class, 'show')]//a[contains(@href, 'login')]")
     private WebElement loginLink;
 
+    public CartPage(WebDriver driver) {
+        super(driver);
+        Logging.info("Открыта страница корзины");
+    }
 
     public CartPage checkCartPage() {
         try {

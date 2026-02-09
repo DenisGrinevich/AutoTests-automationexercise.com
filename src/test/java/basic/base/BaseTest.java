@@ -6,11 +6,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 public abstract class BaseTest {
+
     private WebDriver driver;
 
     protected void startDriver() {
         driver = ChromeUtils.createDriver();
-
     }
 
     protected WebDriver getDriver() {
@@ -24,15 +24,14 @@ public abstract class BaseTest {
         }
     }
 
-    @BeforeMethod(alwaysRun= true)
+    @BeforeMethod(alwaysRun = true)
     protected void beforeMethod() {
         startDriver();
     }
 
-    @AfterMethod(alwaysRun= true)
+    @AfterMethod(alwaysRun = true)
     protected void afterMethod() {
         closeDriver();
     }
-
 
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ProductDetailsPageProduct extends BaseProduct {
+
     private int id;
     private String name;
     private int price;

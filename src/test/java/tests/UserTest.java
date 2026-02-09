@@ -83,12 +83,12 @@ public class UserTest extends BaseTest {
 
     }
 
-    @Test(description = "№3: Login User with incorrect email and password", dependsOnMethods = "testDeleteUser", groups = {"smoke"})
+    @Test(description = "№3: Login User with incorrect email and password",dependsOnMethods = "testDeleteUser", groups = {"smoke"})
     public void testLoginWithIncorrectData() {
 
         boolean text = Navigate.toLoginPage(getDriver())
-                .enterLogin("qweasdzxc123yy@erewr.trter")
-                .enterPassword("aawewe")
+                .enterLogin(EMAIL)
+                .enterPassword(PASSWORD)
                 .clickLoginButtonWithIncorrectData()
                 .isUnsuccessfulLoginTextDisplayed();
 

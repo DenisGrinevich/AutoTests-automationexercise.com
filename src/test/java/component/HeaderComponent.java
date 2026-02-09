@@ -9,10 +9,6 @@ import pages.*;
 
 public class HeaderComponent extends BaseComponent {
 
-    public HeaderComponent(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy(css = "i.fa.fa-home")
     protected WebElement homeButton;
 
@@ -36,6 +32,10 @@ public class HeaderComponent extends BaseComponent {
 
     @FindBy(xpath = "//a[@href='/view_cart']")
     protected WebElement cartButton;
+
+    public HeaderComponent(WebDriver driver) {
+        super(driver);
+    }
 
     public HomePage clickSiteLogo() {
         waitForClickableElement(By.xpath(("//div[@class='logo pull-left']"))).click();

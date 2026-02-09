@@ -7,15 +7,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class PaymentDonePage extends BasePage {
-    public PaymentDonePage(WebDriver driver) {
-        super(driver);
-    }
 
     @FindBy(xpath = "//a[contains(text(), 'Download Invoice')]")
     private WebElement continueButton;
 
     @FindBy(css = "[data-qa='continue-button']")
     private WebElement proceedButton;
+
+    public PaymentDonePage(WebDriver driver) {
+        super(driver);
+    }
 
     public PaymentDonePage checkPaymentDonePage() {
         try {

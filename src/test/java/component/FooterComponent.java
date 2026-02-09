@@ -7,9 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class FooterComponent extends BaseComponent {
-    public FooterComponent(WebDriver driver) {
-        super(driver);
-    }
 
     @FindBy(xpath = "//input[@id='susbscribe_email']")
     protected WebElement subscribeEmailField;
@@ -19,6 +16,10 @@ public class FooterComponent extends BaseComponent {
 
     @FindBy(xpath = "//div[@class='alert-success alert']")
     protected WebElement texAfterSubscribing;
+
+    public FooterComponent(WebDriver driver) {
+        super(driver);
+    }
 
     public FooterComponent verifySubscriptionFormName() {
 

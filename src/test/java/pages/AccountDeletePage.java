@@ -1,12 +1,14 @@
 package pages;
 
 import basic.base.BasePage;
+import basic.tools.Logging;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class AccountDeletePage extends BasePage {
     public AccountDeletePage(WebDriver driver) {
         super(driver);
+        Logging.info("Открыта страница подтверждения удаления аккаунта");
     }
 
     public AccountDeletePage checkAccountDeletedPageText() {
