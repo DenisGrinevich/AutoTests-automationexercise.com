@@ -1,4 +1,4 @@
-package pages;
+package pages.checkout;
 
 import basic.base.BasePage;
 import org.openqa.selenium.By;

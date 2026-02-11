@@ -4,17 +4,24 @@ import basic.base.BaseTest;
 import basic.tools.Navigate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.BrandPage;
-import pages.CategoryPage;
+import pages.products.BrandPage;
+import pages.products.CategoryPage;
 
 
 public class HomePageTest extends BaseTest {
-    public static final String URL_MAIN = "https://automationexercise.com/";
+
+    private static final String URL_MAIN = "https://automationexercise.com/";
+    private static final int itemNumber = 5;
+    private static final String FIRST_CATEGORY = "Kids";
+    private static final String FIRST_SUBCATEGORY = "Dress";
+    private static final String SECOND_CATEGORY = "Men";
+    private static final String SECOND_SUBCATEGORY = "Tshirts";
+    private static final String FIRST_BRAND= "Polo";
+    private static final String SECOND_BRAND = "Madame";
+
 
     @Test(description = "Open Product Page", groups = {"smoke"})
     public void testViewProductButton() {
-
-        int itemNumber = 5;
 
         String productURL = Navigate.toHomePage(getDriver())
                 .clickOnViewProductButton(itemNumber)
@@ -27,10 +34,6 @@ public class HomePageTest extends BaseTest {
 
     @Test(description = "Test Case №18: View Category Products")
     public void testCategoryPage() {
-        final String FIRST_CATEGORY = "Kids";
-        final String FIRST_SUBCATEGORY = "Dress";
-        final String SECOND_CATEGORY = "Men";
-        final String SECOND_SUBCATEGORY = "Tshirts";
 
         CategoryPage checkPage = Navigate.toHomePage(getDriver())
                 .getSidebar()
@@ -49,8 +52,6 @@ public class HomePageTest extends BaseTest {
 
     @Test(description = "Test Case №19: View & Cart Brand Products")
     public void testBrandPage(){
-        final String FIRST_BRAND= "Polo";
-        final String SECOND_BRAND = "Madame";
 
         BrandPage brandPage = Navigate.toHomePage(getDriver())
                 .getSidebar()

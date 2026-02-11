@@ -1,4 +1,4 @@
-package pages;
+package pages.register;
 
 import basic.base.BasePage;
 import basic.tools.Logging;

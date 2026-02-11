@@ -1,4 +1,4 @@
-package pages;
+package pages.products;
 
 import basic.base.BaseProductsPage;
 import basic.tools.Logging;
@@ -33,7 +33,7 @@ public class ProductsPage extends BaseProductsPage<ProductsPage> {
         return this;
     }
 
-    public ProductsPage enterProductName(String searchRequest) {
+    public ProductsPage enterSearchRequest(String searchRequest) {
         waitForVisibleElement(searchBox)
                 .sendKeys(searchRequest.trim().toLowerCase());
         searchButton.click();

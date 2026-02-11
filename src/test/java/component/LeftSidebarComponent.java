@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.BrandPage;
-import pages.CategoryPage;
+import pages.products.BrandPage;
+import pages.products.CategoryPage;
 
 public class LeftSidebarComponent extends BaseComponent {
     public LeftSidebarComponent(WebDriver driver) {

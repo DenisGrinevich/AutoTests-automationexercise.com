@@ -10,9 +10,9 @@ import org.testng.annotations.Test;
 public class UserTest extends BaseTest {
     User user = UserFactory.defaultUser();
 
-    public String EMAIL = user.getEmail();
-    public String NAME = user.getName();
-    public String PASSWORD = user.getPassword();
+    private String EMAIL = user.getEmail();
+    private String NAME = user.getName();
+    private String PASSWORD = user.getPassword();
 
     @Test(description = "№1: Register User", groups = {"smoke"})
     public void testUserRegistration() {

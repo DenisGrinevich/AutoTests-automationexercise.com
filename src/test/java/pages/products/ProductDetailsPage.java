@@ -1,4 +1,4 @@
-package pages;
+package pages.products;
 
 import basic.base.BasePage;
 import component.products.ProductDetailsPageProduct;

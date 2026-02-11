@@ -5,7 +5,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.*;
+import pages.ContactUsPage;
+import pages.HomePage;
+import pages.TestCasesPage;
+import pages.checkout.CartPage;
+import pages.products.ProductsPage;
+import pages.register.AccountDeletePage;
+import pages.register.LoginPage;
 
 public class HeaderComponent extends BaseComponent {
 

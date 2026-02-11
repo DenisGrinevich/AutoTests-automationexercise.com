@@ -1,4 +1,4 @@
-package pages;
+package pages.products;
 
 import basic.base.BaseProductsPage;
 import basic.tools.Logging;
