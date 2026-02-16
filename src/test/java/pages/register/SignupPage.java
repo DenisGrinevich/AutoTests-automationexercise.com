@@ -89,14 +89,15 @@ public class SignupPage extends BasePage {
                 sendName(user);
                 return this;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
 
     }
 
     public SignupPage sendName(User user) {
-        nameField.sendKeys(user.getName());
+        waitForClickableElement(nameField).sendKeys(user.getName());
         return this;
     }
 
@@ -108,94 +109,93 @@ public class SignupPage extends BasePage {
         return this;
     }
 
-
     public SignupPage sendPassword(User user) {
-        passwordField.clear();
+        waitForClickableElement(passwordField).clear();
         passwordField.sendKeys(user.getPassword());
         return this;
     }
 
     public SignupPage sendFirstName(User user) {
-        firstNameField.clear();
+        waitForClickableElement(firstNameField).clear();
         firstNameField.sendKeys(user.getFirstName());
         return this;
     }
 
     public SignupPage sendLastName(User user) {
-        lastNameField.clear();
+        waitForClickableElement(lastNameField).clear();
         lastNameField.sendKeys(user.getLastName());
         return this;
     }
 
     public SignupPage sendCompany(User user) {
-        companyField.clear();
+        waitForClickableElement(companyField).clear();
         companyField.sendKeys(user.getCompany());
         return this;
     }
 
     public SignupPage sendAddress(User user) {
-        addressField.clear();
+        waitForClickableElement(addressField).clear();
         addressField.sendKeys(user.getAddress());
         return this;
     }
 
     public SignupPage sendSecondAddress(User user) {
-        secondAddressField.clear();
+        waitForClickableElement(secondAddressField).clear();
         secondAddressField.sendKeys(user.getAddress2());
         return this;
     }
 
     public SignupPage sendState(User user) {
-        stateField.clear();
+        waitForClickableElement(stateField).clear();
         stateField.sendKeys(user.getState());
         return this;
     }
 
     public SignupPage sendCity(User user) {
-        citydField.clear();
+        waitForClickableElement(citydField).clear();
         citydField.sendKeys(user.getCity());
         return this;
     }
 
     public SignupPage sendZipcode(User user) {
-        zipCodeField.clear();
+        waitForClickableElement(zipCodeField).clear();
         zipCodeField.sendKeys(user.getZipcode());
         return this;
     }
 
     public SignupPage sendMobileNumber(User user) {
-        mobileNumberField.clear();
+        waitForClickableElement(mobileNumberField).clear();
         mobileNumberField.sendKeys(user.getMobileNumber());
         return this;
     }
 
     public SignupPage chooseDay(User user) {
-        new Select(dayDropdown).selectByValue(user.getDayOfBirth());
+        new Select(waitForClickableElement(dayDropdown)).selectByValue(user.getDayOfBirth());
         return this;
     }
 
     public SignupPage chooseMonth(User user) {
-        new Select(monthDropdown).selectByValue(user.getMonthOfBirth());
+        new Select(waitForClickableElement(monthDropdown)).selectByValue(user.getMonthOfBirth());
         return this;
     }
 
     public SignupPage chooseYear(User user) {
-        new Select(yearDropdown).selectByValue(user.getYearOfBirth());
+        new Select(waitForClickableElement(yearDropdown)).selectByValue(user.getYearOfBirth());
         return this;
     }
 
     public SignupPage chooseCountry(User user) {
-        new Select(countryDropdown).selectByValue(user.getCountry());
+        new Select(waitForClickableElement(countryDropdown)).selectByValue(user.getCountry());
         return this;
     }
 
     public SignupPage selectOffersCheckbox() {
-        offersCheckbox.click();
+        waitForClickableElement(offersCheckbox).click();
         return this;
     }
 
     public SignupPage selectNewsletterCheckbox() {
-        newsletterCheckbox.click();
+        waitForClickableElement(newsletterCheckbox).click();
         return this;
     }
     public SignupPage fillFullForm(User user){

@@ -105,7 +105,7 @@ public class AddProductsToCartTest extends BaseTest {
                 page
                         .getHeader()
                         .clickSignupLoginButton()
-                        .login(user.getEmail(),user.getPassword())
+                        .login(user)
                         .getHeader()
                         .clickCartButton()
                         .getAllProductsFromCart();

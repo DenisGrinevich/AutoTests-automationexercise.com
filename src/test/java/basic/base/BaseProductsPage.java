@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.products.ProductDetailsPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ public abstract class BaseProductsPage<T extends BaseProductsPage> extends BaseP
 
     @FindBy(xpath = "//div[@class='modal-footer']/button")
     private WebElement continueShoppingButton;
+
+    @FindBy(xpath = "//div[@class='product-image-wrapper']")
+    private List<WebElement> productCards;
 
     public BaseProductsPage(WebDriver driver) {
         super(driver);
@@ -56,5 +60,17 @@ public abstract class BaseProductsPage<T extends BaseProductsPage> extends BaseP
 
         return addedProducts;
     }
+    private WebElement chooseProductCard(int index) {
+        return productCards.get(index - 1)
+                .findElement(By.className("choose"));
+    }
+
+    public ProductDetailsPage clickOnViewProductButton(int productIndex) {
+        waitForClickableElement(chooseProductCard(productIndex))
+                .click();
+        return new ProductDetailsPage(getDriver());
+    }
+
+
 
 }
