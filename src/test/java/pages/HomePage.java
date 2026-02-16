@@ -1,22 +1,17 @@
 package pages;
 
-import basic.base.BasePage;
+import basic.base.BaseProductsPage;
 import basic.tools.Logging;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
 
-
-public class HomePage extends BasePage {
+public class HomePage extends BaseProductsPage {
 
     @FindBy(className = "choose")
     private WebElement viewProductButton;
-
-    @FindBy(xpath = "//div[@class='product-image-wrapper']")
-    private List<WebElement> productCards;
 
     @FindBy(xpath = "//i[@class='fa fa-home']")
     protected WebElement homeButton;
@@ -28,15 +23,9 @@ public class HomePage extends BasePage {
         Logging.info("Открыта главная страница");
     }
 
-    public ProductDetailsPage clickOnViewProductButton(int productIndex) {
-        waitForClickableElement(chooseProductCard(productIndex))
-                .click();
-        return new ProductDetailsPage(getDriver());
-    }
-
-    private WebElement chooseProductCard(int index) {
-        return productCards.get(index - 1)
-                .findElement(By.className("choose"));
+    @Override
+    protected HomePage self() {
+        return this;
     }
 
     public HomePage checkHomePage() {

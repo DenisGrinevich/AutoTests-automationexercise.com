@@ -10,9 +10,9 @@ import org.testng.annotations.Test;
 public class UserTest extends BaseTest {
     User user = UserFactory.defaultUser();
 
-    public String EMAIL = user.getEmail();
-    public String NAME = user.getName();
-    public String PASSWORD = user.getPassword();
+    private String EMAIL = user.getEmail();
+    private String NAME = user.getName();
+    private String PASSWORD = user.getPassword();
 
     @Test(description = "№1: Register User", groups = {"smoke"})
     public void testUserRegistration() {
@@ -50,7 +50,7 @@ public class UserTest extends BaseTest {
     @Test(description = "№4: Logout User", dependsOnMethods = "testSuccessLogin", groups = {"smoke"})
     public void testSuccessLogout() {
         String text = Navigate.toLoginPage(getDriver())
-                .login(EMAIL, PASSWORD)
+                .login(user)
                 .getHeader()
                 .clickLogoutButton()
                 .getLoginFormName();
@@ -72,7 +72,7 @@ public class UserTest extends BaseTest {
     @Test(description = "Delete User", dependsOnMethods = "testExistingEmailRegistration", groups = {"smoke"})
     public void testDeleteUser(){
         boolean page = Navigate.toLoginPage(getDriver())
-                .login(EMAIL, PASSWORD)
+                .login(user)
                 .getHeader()
                 .clickDeleteAccountButton()
                 .checkAccountDeletedPageText()

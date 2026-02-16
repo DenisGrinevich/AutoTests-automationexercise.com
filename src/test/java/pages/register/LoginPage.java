@@ -1,12 +1,14 @@
-package pages;
+package pages.register;
 
 import basic.base.BasePage;
 import basic.tools.Logging;
+import component.users.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pages.HomePage;
 
 public class LoginPage extends BasePage {
 
@@ -112,12 +114,9 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public HomePage login(String email, String password) {
-        enterLogin(email).enterPassword(password)
-                .clickLoginButton()
-                .checkHomePage();
+    public HomePage login(User user) {
+        enterLogin(user.getEmail()).enterPassword(user.getPassword())
+                .clickLoginButton();
         return new HomePage(getDriver());
-
     }
-
 }

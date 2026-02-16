@@ -1,4 +1,4 @@
-package pages;
+package pages.checkout;
 
 import basic.base.BasePage;
 import basic.tools.Logging;
@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.register.LoginPage;
 
 import java.util.List;
 import java.util.stream.Collectors;

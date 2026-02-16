@@ -1,10 +1,10 @@
 package basic.tools;
 
 import org.openqa.selenium.WebDriver;
-import pages.CartPage;
 import pages.HomePage;
-import pages.LoginPage;
-import pages.ProductsPage;
+import pages.checkout.CartPage;
+import pages.products.ProductsPage;
+import pages.register.LoginPage;
 
 public class Navigate {
 

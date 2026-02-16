@@ -7,7 +7,8 @@ import org.testng.annotations.Test;
 
 
 public class SearchTest extends BaseTest {
-    public static String SEARCH_REQUEST = "Blue";
+
+    private final static String SEARCH_REQUEST = "Blue";
 
     @Test(description = "№9: Search Product", groups = {"smoke"})
     public void testSearchProductName() {
@@ -17,12 +18,11 @@ public class SearchTest extends BaseTest {
                 .getHeader()
                 .clickProductsButton()
                 .checkAllProductsPage()
-                .enterProductName(SEARCH_REQUEST)
+                .enterSearchRequest(SEARCH_REQUEST)
                 .checkSearchResultPage()
                 .checkSearchRequestInProductName(SEARCH_REQUEST);
 
         Assert.assertTrue(productNames);
 
     }
-
 }

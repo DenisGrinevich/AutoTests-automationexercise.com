@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class FooterTest extends BaseTest {
 
-    public static final String EMAIL = "test@test.com";
+    private static final String EMAIL = "test@test.com";
 
     @Test(description = "№10: Verify Subscription in home page")
     public void testSubscriptionOnHomePage() {
