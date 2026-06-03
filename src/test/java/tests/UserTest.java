@@ -1,9 +1,13 @@
+/*
+Класс для тестов, связанных с действиями с пользователем (регистрация, логин)
+ */
+
 package tests;
 
 import basic.base.BaseTest;
+import basic.model.User;
 import basic.tools.Navigate;
 import basic.tools.UserFactory;
-import component.users.User;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

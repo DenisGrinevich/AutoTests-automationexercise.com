@@ -1,3 +1,7 @@
+/*
+Базовый класс для страницы с общими методами для всех страниц
+ */
+
 package basic.base;
 
 import component.FooterComponent;
@@ -7,27 +11,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 
-public abstract class BasePage extends BaseModel {
+public abstract class BasePage  {
+
+    protected final WebDriver driver;
 
     public BasePage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     public HeaderComponent getHeader() {
-        return new HeaderComponent(getDriver());
+        return new HeaderComponent(driver);
     }
 
     public LeftSidebarComponent getSidebar() {
-        return new LeftSidebarComponent(getDriver());
+        return new LeftSidebarComponent(driver);
     }
 
     public FooterComponent getFooter() {
-        return new FooterComponent(getDriver());
-    }
-
-    public void openPage(String url) {
-        driver.get(url);
+        return new FooterComponent(driver);
     }
 
     public String getCurrentUrl() {

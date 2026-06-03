@@ -1,3 +1,7 @@
+/*
+Класс для тестов, связанных с фукционалом хедера
+ */
+
 package tests;
 
 import basic.base.BaseTest;

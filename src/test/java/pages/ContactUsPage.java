@@ -1,7 +1,11 @@
+/*
+Page Object класс для страницы коммуникации с работниками магазина
+ */
+
 package pages;
 
 import basic.base.BasePage;
-import basic.tools.Logging;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,12 +35,11 @@ public class ContactUsPage extends BasePage {
 
     public ContactUsPage(WebDriver driver) {
         super(driver);
-        Logging.info("Открыта страница контактов");
     }
 
     public ContactUsPage checkContactFormName() {
         try {
-            getWait().until(ExpectedConditions
+            WaitUtils.createWait(driver,10).until(ExpectedConditions
                     .visibilityOfElementLocated(By.xpath("//*[.='Get In Touch']"))).isDisplayed();
             return this;
         } catch (Exception e) {
@@ -46,19 +49,19 @@ public class ContactUsPage extends BasePage {
     }
 
     public ContactUsPage clickSubmitButton() {
-        waitForClickableElement(By.cssSelector("[name='submit']")).click();
+        WaitUtils.waitForClickableElement(driver, By.cssSelector("[name='submit']")).click();
         return this;
     }
 
     public HomePage clickReturnHomeButton() {
-        waitForClickableElement(By.cssSelector("a.btn")).click();
-        return new HomePage(getDriver());
+        WaitUtils.waitForClickableElement(driver,By.cssSelector("a.btn")).click();
+        return new HomePage(driver);
     }
 
     public ContactUsPage isSuccessSendingTextDisplayed() {
         {
             try {
-                getWait().until(ExpectedConditions
+                WaitUtils.createWait(driver,10).until(ExpectedConditions
                         .visibilityOfElementLocated(By.xpath("//*[.='Success! Your details have been submitted successfully.']"))).isDisplayed();
                 return this;
             } catch (Exception e) {
@@ -93,9 +96,9 @@ public class ContactUsPage extends BasePage {
 
 
     public ContactUsPage clickOkOnAlert() {
-        Alert alert = getDriver().switchTo().alert();
+        Alert alert = driver.switchTo().alert();
         alert.accept();
-        return new ContactUsPage(getDriver());
+        return new ContactUsPage(driver);
     }
 
     public ContactUsPage uploadFile() {

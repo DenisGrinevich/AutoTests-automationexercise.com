@@ -1,7 +1,11 @@
+/*
+Page Object класс для промежуточной страницы с сообщением об удалении аккаунта
+ */
+
 package pages.register;
 
 import basic.base.BasePage;
-import basic.tools.Logging;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
@@ -9,18 +13,17 @@ import pages.HomePage;
 public class AccountDeletePage extends BasePage {
     public AccountDeletePage(WebDriver driver) {
         super(driver);
-        Logging.info("Открыта страница подтверждения удаления аккаунта");
     }
 
     public AccountDeletePage checkAccountDeletedPageText() {
-        if (!waitForClickableElement(By.xpath("//*[.='Account Deleted!']")).isDisplayed())
+        if (!WaitUtils.waitForClickableElement(driver, By.xpath("//*[.='Account Deleted!']")).isDisplayed())
             throw new AssertionError("Это не страница удаления аккаунта");
 
         return this;
     }
 
     public HomePage clickContinueButton() {
-        waitForClickableElement((By.cssSelector("[data-qa='continue-button']"))).click();
-        return new HomePage(getDriver());
+        WaitUtils.waitForClickableElement(driver, By.cssSelector("[data-qa='continue-button']")).click();
+        return new HomePage(driver);
     }
 }

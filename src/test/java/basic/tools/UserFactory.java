@@ -1,14 +1,18 @@
+/*
+Класс для создания пользователя
+ */
+
 package basic.tools;
 
-import component.users.User;
+import basic.model.User;
 
 public class UserFactory {
     public static User defaultUser(){
-        return new User.Builder()
+        return User.builder()
                 .email("james@test.test")
                 .name("James")
                 .password("james@test.test")
-                .gender(Constants.Gender.MRS)
+                .gender(User.Gender.MRS)
                 .dayOfBirth("21")
                 .monthOfBirth("5")
                 .yearOfBirth("1995")
@@ -17,7 +21,7 @@ public class UserFactory {
                 .company("company")
                 .address("address")
                 .address2("none")
-                .country(Constants.Country.USA)
+                .country(User.Country.USA)
                 .state("NY")
                 .city("New-York")
                 .zipcode("123123")

@@ -1,3 +1,7 @@
+/*
+Утилитный класс для создания и настройки драйвера для chrome
+ */
+
 package basic;
 
 import org.openqa.selenium.WebDriver;
@@ -8,10 +12,10 @@ public class ChromeUtils {
     public static WebDriver createDriver() {
 
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-//        options.addArguments("--window-size=1540,900");
+        options.addArguments("--headless=new");
+        options.addArguments("--window-size=1920,1080");
 
         WebDriver driver = new ChromeDriver(options);
 

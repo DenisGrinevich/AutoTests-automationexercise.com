@@ -1,16 +1,20 @@
+/*
+Page Object класс для страницы листинга всех товаров
+ */
+
 package pages.products;
 
-import basic.base.BaseProductsPage;
-import basic.tools.Logging;
+import basic.base.BasePage;
+import basic.tools.WaitUtils;
+import component.ProductsListComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.util.List;
 
-public class ProductsPage extends BaseProductsPage<ProductsPage> {
+public class ProductsPage extends BasePage {
 
     @FindBy(xpath = "//input[@id='search_product']")
     private WebElement searchBox;
@@ -25,16 +29,14 @@ public class ProductsPage extends BaseProductsPage<ProductsPage> {
 
     public ProductsPage(WebDriver driver) {
         super(driver);
-        Logging.info("Открыта страница со всеми продуктами");
     }
 
-    @Override
-    protected ProductsPage self() {
-        return this;
+    public ProductsListComponent getProductList() {
+        return new ProductsListComponent(driver);
     }
 
     public ProductsPage enterSearchRequest(String searchRequest) {
-        waitForVisibleElement(searchBox)
+        WaitUtils.waitForVisibleElement(driver, searchBox)
                 .sendKeys(searchRequest.trim().toLowerCase());
         searchButton.click();
         return this;
@@ -42,7 +44,7 @@ public class ProductsPage extends BaseProductsPage<ProductsPage> {
 
     public ProductsPage checkAllProductsPage() {
         try {
-            getWait().until(ExpectedConditions
+            WaitUtils.createWait(driver, 10).until(ExpectedConditions
                     .visibilityOfElementLocated(By.xpath("//h2[@class='title text-center'][contains(text(),'All Products')]"))).isDisplayed();
             return this;
         } catch (Exception e) {
@@ -52,7 +54,7 @@ public class ProductsPage extends BaseProductsPage<ProductsPage> {
 
     public ProductsPage checkSearchResultPage() {
 
-        if (!waitForVisibleElement(By.xpath("//h2[@class='title text-center'][contains(text(),'Searched Products')]")).isDisplayed())
+        if (!WaitUtils.waitForVisibleElement(driver, By.xpath("//h2[@class='title text-center'][contains(text(),'Searched Products')]")).isDisplayed())
             throw new AssertionError("Текст \"Searched Products\" не найден");
 
         return this;
@@ -60,7 +62,7 @@ public class ProductsPage extends BaseProductsPage<ProductsPage> {
 
 
     public boolean checkSearchRequestInProductName(String request) {
-        List<String> text = getDriver().findElements(By.xpath("//div[@class='productinfo text-center']/p"))
+        List<String> text = driver.findElements(By.xpath("//div[@class='productinfo text-center']/p"))
                 .stream()
                 .map(WebElement::getText)
                 .map(String::toLowerCase)

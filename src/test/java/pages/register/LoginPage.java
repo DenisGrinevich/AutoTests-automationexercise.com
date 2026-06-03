@@ -1,8 +1,12 @@
+/*
+Page Object класс для страницы логина
+ */
+
 package pages.register;
 
 import basic.base.BasePage;
-import basic.tools.Logging;
-import component.users.User;
+import basic.model.User;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,12 +38,12 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        Logging.info("Открыта страница логина");
+
     }
 
     public LoginPage checkSignupFormName() {
 
-        if (!waitForVisibleElement(By.xpath("//*[.='New User Signup!']")).isDisplayed())
+        if (!WaitUtils.waitForVisibleElement(driver, By.xpath("//*[.='New User Signup!']")).isDisplayed())
             throw new AssertionError("Текст \"New User Signup!\" не найден");
 
         return this;
@@ -47,13 +51,13 @@ public class LoginPage extends BasePage {
 
 
     public String getLoginFormName() {
-        return getWait().until(ExpectedConditions
+        return WaitUtils.createWait(driver,10).until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//div[@class='login-form']/h2"))).getText();
     }
 
     public boolean isUnsuccessfulLoginTextDisplayed() {
         try {
-            return waitForVisibleElement(By.xpath("//*[.='Your email or password is incorrect!']"))
+            return WaitUtils.waitForVisibleElement(driver, By.xpath("//*[.='Your email or password is incorrect!']"))
                     .isDisplayed();
         } catch (Exception e) {
             throw new AssertionError("Текст об некорректном логине или пароле не найден");
@@ -62,7 +66,7 @@ public class LoginPage extends BasePage {
 
     public boolean isUnsuccessfulRegistrationTextDisplayed() {
         try {
-            return waitForVisibleElement(By.xpath("//*[.='Email Address already exist!']"))
+            return WaitUtils.waitForVisibleElement(driver, By.xpath("//*[.='Email Address already exist!']"))
                     .isDisplayed();
         } catch (Exception e) {
             throw new AssertionError("Текст о существующем логине не найден");
@@ -82,12 +86,12 @@ public class LoginPage extends BasePage {
     }
 
     public SignupPage clickSignupButton() {
-        waitForClickableElement(signupButton).click();
-        return new SignupPage(getDriver());
+        WaitUtils.waitForClickableElement(driver,signupButton).click();
+        return new SignupPage(driver);
     }
 
     public LoginPage clickSignupButtonWithIncorrectData() {
-        waitForClickableElement(signupButton).click();
+        WaitUtils.waitForClickableElement(driver,signupButton).click();
         return this;
     }
 
@@ -105,18 +109,18 @@ public class LoginPage extends BasePage {
     }
 
     public HomePage clickLoginButton() {
-        waitForClickableElement(loginButton).click();
-        return new HomePage(getDriver());
+        WaitUtils.waitForClickableElement(driver,loginButton).click();
+        return new HomePage(driver);
     }
 
     public LoginPage clickLoginButtonWithIncorrectData() {
-        waitForClickableElement(loginButton).click();
+        WaitUtils.waitForClickableElement(driver,loginButton).click();
         return this;
     }
 
     public HomePage login(User user) {
         enterLogin(user.getEmail()).enterPassword(user.getPassword())
                 .clickLoginButton();
-        return new HomePage(getDriver());
+        return new HomePage(driver);
     }
 }
