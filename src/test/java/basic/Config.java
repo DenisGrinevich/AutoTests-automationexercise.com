@@ -1,7 +1,14 @@
+/*
+Класс с конфигурационными константами
+ */
+
 package basic;
 
-public class Config {
-    public static final Boolean CLEAR_COOKIES_AND_STORAGE = true;
+import java.time.Duration;
 
+public class Config {
+
+    public static final String MAIN_URL = "https://automationexercise.com";
+    public static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(10);
 
 }

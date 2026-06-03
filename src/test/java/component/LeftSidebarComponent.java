@@ -1,6 +1,11 @@
+/*
+Класс для компонента левогой сайдбара, т.к. он одинаков для большинства листинговых страниц
+ */
+
 package component;
 
 import basic.base.BaseComponent;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,19 +32,19 @@ public class LeftSidebarComponent extends BaseComponent {
     }
 
     private WebElement getSubCategory(String subCategoryName){
-        return waitForLoadedElement(By.xpath(".//div[@class = 'panel-collapse in']//a[normalize-space()='"+subCategoryName+"']"));
+        return WaitUtils.waitForLoadedElement(driver, By.xpath(".//div[@class = 'panel-collapse in']//a[normalize-space()='"+subCategoryName+"']"));
 
     }
 
     public LeftSidebarComponent clickOnCategory(String categoryName){
-        waitForClickableElement(getCategory(categoryName)).click();
+        WaitUtils.waitForClickableElement(driver, getCategory(categoryName)).click();
         return this;
     }
 
     public CategoryPage clickOnSubCategory(String subCategoryName){
-        waitForClickableElement(getSubCategory(subCategoryName)).click();
+        WaitUtils.waitForClickableElement(driver, getSubCategory(subCategoryName)).click();
 
-        return new CategoryPage(getDriver());
+        return new CategoryPage(driver);
     }
 
     private WebElement getBrand(String brandName){
@@ -47,7 +52,7 @@ public class LeftSidebarComponent extends BaseComponent {
     }
 
     public BrandPage clickOnBrand(String brandName){
-        waitForClickableElement(getBrand(brandName)).click();
-        return new BrandPage(getDriver());
+        WaitUtils.waitForClickableElement(driver, getBrand(brandName)).click();
+        return new BrandPage(driver);
     }
 }

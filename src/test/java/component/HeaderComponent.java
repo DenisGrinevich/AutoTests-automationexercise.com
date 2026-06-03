@@ -1,6 +1,12 @@
+/*
+Класс для компонента хедера, чтобы была возможность вызывать его на любой странице, т.к. он одинаковый для большинства страниц
+ */
+
 package component;
 
 import basic.base.BaseComponent;
+import basic.model.User;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,7 +40,7 @@ public class HeaderComponent extends BaseComponent {
     protected WebElement contactUsButton;
 
     @FindBy(xpath = "//a[@href='/test_cases']")
-    protected WebElement testCasesButton;
+    public WebElement testCasesButton;
 
     @FindBy(xpath = "//a[@href='/view_cart']")
     protected WebElement cartButton;
@@ -44,53 +50,61 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public HomePage clickSiteLogo() {
-        waitForClickableElement(By.xpath(("//div[@class='logo pull-left']"))).click();
-        return new HomePage(getDriver());
+        WaitUtils.waitForClickableElement(driver, By.xpath(("//div[@class='logo pull-left']"))).click();
+        return new HomePage(driver);
     }
 
     public ProductsPage clickProductsButton() {
-        waitForClickableElement(productsButton).click();
-        return new ProductsPage(getDriver());
+        WaitUtils.waitForClickableElement(driver, productsButton).click();
+        return new ProductsPage(driver);
     }
 
     public HomePage clickHomeButton() {
-        waitForClickableElement(homeButton).click();
-        return new HomePage(getDriver());
+        WaitUtils.waitForClickableElement(driver, homeButton).click();
+        return new HomePage(driver);
 
     }
 
     public CartPage clickCartButton() {
-        waitForClickableElement(cartButton).click();
-        return new CartPage(getDriver());
+        WaitUtils.waitForClickableElement(driver,cartButton).click();
+        return new CartPage(driver);
     }
 
     public LoginPage clickSignupLoginButton() {
-        waitForClickableElement(loginButton).click();
-        return new LoginPage(getDriver());
+        WaitUtils.waitForClickableElement(driver,loginButton).click();
+        return new LoginPage(driver);
     }
 
     public ContactUsPage clickContactUsButton() {
-        waitForClickableElement(contactUsButton).click();
-        return new ContactUsPage(getDriver());
+        WaitUtils.waitForClickableElement(driver,contactUsButton).click();
+        return new ContactUsPage(driver);
     }
 
     public LoginPage clickLogoutButton() {
-        waitForClickableElement(logoutButton).click();
-        return new LoginPage(getDriver());
+        WaitUtils.waitForClickableElement(driver,logoutButton).click();
+        return new LoginPage(driver);
     }
 
     public String getUserName() {
-        return waitForClickableElement(By.xpath("//li[last()]/a/b")).getText();
+        return WaitUtils.waitForClickableElement(driver,By.xpath("//li[last()]/a/b")).getText();
+    }
+
+    public HeaderComponent checkUserLogin(User user) {
+        String userName = WaitUtils.waitForClickableElement(driver, By.xpath("//li[last()]/a/b")).getText();
+        if (!getUserName().equals(userName)) {
+            throw new AssertionError(String.format("Данный пользователь не авторизован. Имя пользователя: %s, отображаемое имя: %s", getUserName(), userName));
+        }
+        return this;
     }
 
     public TestCasesPage clickTestCasesButton() {
-        waitForClickableElement(testCasesButton).click();
-        return new TestCasesPage(getDriver());
+        WaitUtils.waitForClickableElement(driver,testCasesButton).click();
+        return new TestCasesPage(driver);
     }
 
     public AccountDeletePage clickDeleteAccountButton() {
-        waitForClickableElement(deleteAccountButton).click();
-        return new AccountDeletePage(getDriver());
+        WaitUtils.waitForClickableElement(driver,deleteAccountButton).click();
+        return new AccountDeletePage(driver);
     }
 
 

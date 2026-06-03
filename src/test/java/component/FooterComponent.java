@@ -1,6 +1,11 @@
+/*
+Класс для компонента футера, чтобы была возможность вызывать его на любой странице, т.к. он одинаковый для большинства страниц
+ */
+
 package component;
 
 import basic.base.BaseComponent;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,7 +29,7 @@ public class FooterComponent extends BaseComponent {
     public FooterComponent verifySubscriptionFormName() {
 
         try {
-            waitForVisibleElement(By.xpath("//div[@class='single-widget']/*[contains(text(), 'Subscription')]"))
+            WaitUtils.waitForVisibleElement(driver, By.xpath("//div[@class='single-widget']/*[contains(text(), 'Subscription')]"))
                     .isDisplayed();
                 return this;
         } catch (Exception e) {
@@ -39,11 +44,11 @@ public class FooterComponent extends BaseComponent {
     }
 
     public FooterComponent clickOnSubscribeButton() {
-        waitForClickableElement(subscribeButton).click();
+        WaitUtils.waitForClickableElement(driver,subscribeButton).click();
         return this;
     }
 
     public String getTextAfterSubscribing() {
-        return waitForVisibleElement(texAfterSubscribing).getText();
+        return WaitUtils.waitForVisibleElement(driver,texAfterSubscribing).getText();
     }
 }

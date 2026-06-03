@@ -1,14 +1,20 @@
+/*
+Page Object класс для главной страницы
+ */
+
 package pages;
 
-import basic.base.BaseProductsPage;
-import basic.tools.Logging;
+import basic.base.BasePage;
+import basic.tools.WaitUtils;
+import component.ProductsListComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+public class HomePage extends BasePage {
 
-public class HomePage extends BaseProductsPage {
+    public ProductsListComponent productList;
 
     @FindBy(className = "choose")
     private WebElement viewProductButton;
@@ -20,27 +26,21 @@ public class HomePage extends BaseProductsPage {
 
     public HomePage(WebDriver driver) {
         super(driver);
-        Logging.info("Открыта главная страница");
     }
 
-    @Override
-    protected HomePage self() {
-        return this;
+    public ProductsListComponent getProductList(){
+        return new ProductsListComponent(driver);
     }
 
     public HomePage checkHomePage() {
-        if (!waitForVisibleElement(By.xpath("//li[1]/a[@style='color: orange;']")).isDisplayed())
+        if (!WaitUtils.waitForVisibleElement(driver, By.xpath("//li[1]/a[@style='color: orange;']")).isDisplayed())
             throw new AssertionError("Это не главная страница");
 
         return this;
     }
 
     public boolean isHomepageDisplayed() {
-        return waitForVisibleElement(By.xpath("//li[1]/a[@style='color: orange;']")).isDisplayed();
-
+        return WaitUtils.waitForVisibleElement(driver,By.xpath("//li[1]/a[@style='color: orange;']")).isDisplayed();
     }
-
-
-
 
 }

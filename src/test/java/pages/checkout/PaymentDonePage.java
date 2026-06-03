@@ -1,6 +1,11 @@
+/*
+Page Object класс для промежуточной страницы подтверждения оплаты, в нем элементы и методы для взаимодействия со страницей
+ */
+
 package pages.checkout;
 
 import basic.base.BasePage;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,7 +26,7 @@ public class PaymentDonePage extends BasePage {
 
     public PaymentDonePage checkPaymentDonePage() {
         try {
-            waitForVisibleElement(By.xpath("//*[.='Order Placed!']")).isDisplayed();
+            WaitUtils.waitForVisibleElement(driver,By.xpath("//*[.='Order Placed!']")).isDisplayed();
             return this;
         } catch (Exception e) {
             throw new AssertionError("Открыта не страница корзины");
@@ -29,8 +34,8 @@ public class PaymentDonePage extends BasePage {
     }
 
     public HomePage clickContinueButton() {
-        waitForClickableElement(continueButton).click();
-        return new HomePage(getDriver());
+        WaitUtils.waitForClickableElement(driver,continueButton).click();
+        return new HomePage(driver);
     }
 }
 

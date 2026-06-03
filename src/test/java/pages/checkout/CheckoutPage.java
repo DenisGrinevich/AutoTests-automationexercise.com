@@ -1,3 +1,7 @@
+/*
+Page Object класс для страницы чекаута (пока в процессе разработки)
+ */
+
 package pages.checkout;
 
 import basic.base.BasePage;

@@ -1,3 +1,7 @@
+/*
+Класс для тестов, связанных со связью с работниками магазина
+ */
+
 package tests;
 
 import basic.base.BaseTest;

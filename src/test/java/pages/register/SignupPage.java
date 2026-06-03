@@ -1,8 +1,12 @@
+/*
+Page Object класс для страницы регистрации
+ */
+
 package pages.register;
 
 import basic.base.BasePage;
-import basic.tools.Logging;
-import component.users.User;
+import basic.model.User;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -68,16 +72,15 @@ public class SignupPage extends BasePage {
 
     public SignupPage(WebDriver driver) {
         super(driver);
-        Logging.info("Открыта страница регистрации пользователя");
     }
 
     public String getEnterAccountText() {
-        return getWait().until(ExpectedConditions.visibilityOfElementLocated(By.className("title"))).getText();
+        return WaitUtils.createWait(driver,10).until(ExpectedConditions.visibilityOfElementLocated(By.className("title"))).getText();
 
     }
 
     public SignupPage selectGenderButton(User user) {
-        waitForClickableElement(By.xpath("//input[@type='radio' and @value = '" + user.getGender() + "']")).click();
+        WaitUtils.waitForClickableElement(driver,By.xpath("//input[@type='radio' and @value = '" + user.getGender().getDisplayGender() + "']")).click();
         return this;
     }
 
@@ -97,7 +100,7 @@ public class SignupPage extends BasePage {
     }
 
     public SignupPage sendName(User user) {
-        waitForClickableElement(nameField).sendKeys(user.getName());
+        WaitUtils.waitForClickableElement(driver,nameField).sendKeys(user.getName());
         return this;
     }
 
@@ -110,92 +113,92 @@ public class SignupPage extends BasePage {
     }
 
     public SignupPage sendPassword(User user) {
-        waitForClickableElement(passwordField).clear();
+        WaitUtils.waitForClickableElement(driver,passwordField).clear();
         passwordField.sendKeys(user.getPassword());
         return this;
     }
 
     public SignupPage sendFirstName(User user) {
-        waitForClickableElement(firstNameField).clear();
+        WaitUtils.waitForClickableElement(driver,firstNameField).clear();
         firstNameField.sendKeys(user.getFirstName());
         return this;
     }
 
     public SignupPage sendLastName(User user) {
-        waitForClickableElement(lastNameField).clear();
+        WaitUtils.waitForClickableElement(driver,lastNameField).clear();
         lastNameField.sendKeys(user.getLastName());
         return this;
     }
 
     public SignupPage sendCompany(User user) {
-        waitForClickableElement(companyField).clear();
+        WaitUtils.waitForClickableElement(driver,companyField).clear();
         companyField.sendKeys(user.getCompany());
         return this;
     }
 
     public SignupPage sendAddress(User user) {
-        waitForClickableElement(addressField).clear();
+        WaitUtils.waitForClickableElement(driver,addressField).clear();
         addressField.sendKeys(user.getAddress());
         return this;
     }
 
     public SignupPage sendSecondAddress(User user) {
-        waitForClickableElement(secondAddressField).clear();
+        WaitUtils.waitForClickableElement(driver,secondAddressField).clear();
         secondAddressField.sendKeys(user.getAddress2());
         return this;
     }
 
     public SignupPage sendState(User user) {
-        waitForClickableElement(stateField).clear();
+        WaitUtils.waitForClickableElement(driver,stateField).clear();
         stateField.sendKeys(user.getState());
         return this;
     }
 
     public SignupPage sendCity(User user) {
-        waitForClickableElement(citydField).clear();
+        WaitUtils.waitForClickableElement(driver,citydField).clear();
         citydField.sendKeys(user.getCity());
         return this;
     }
 
     public SignupPage sendZipcode(User user) {
-        waitForClickableElement(zipCodeField).clear();
+        WaitUtils.waitForClickableElement(driver,zipCodeField).clear();
         zipCodeField.sendKeys(user.getZipcode());
         return this;
     }
 
     public SignupPage sendMobileNumber(User user) {
-        waitForClickableElement(mobileNumberField).clear();
+        WaitUtils.waitForClickableElement(driver,mobileNumberField).clear();
         mobileNumberField.sendKeys(user.getMobileNumber());
         return this;
     }
 
     public SignupPage chooseDay(User user) {
-        new Select(waitForClickableElement(dayDropdown)).selectByValue(user.getDayOfBirth());
+        new Select(WaitUtils.waitForClickableElement(driver,dayDropdown)).selectByValue(user.getDayOfBirth());
         return this;
     }
 
     public SignupPage chooseMonth(User user) {
-        new Select(waitForClickableElement(monthDropdown)).selectByValue(user.getMonthOfBirth());
+        new Select(WaitUtils.waitForClickableElement(driver,monthDropdown)).selectByValue(user.getMonthOfBirth());
         return this;
     }
 
     public SignupPage chooseYear(User user) {
-        new Select(waitForClickableElement(yearDropdown)).selectByValue(user.getYearOfBirth());
+        new Select(WaitUtils.waitForClickableElement(driver,yearDropdown)).selectByValue(user.getYearOfBirth());
         return this;
     }
 
     public SignupPage chooseCountry(User user) {
-        new Select(waitForClickableElement(countryDropdown)).selectByValue(user.getCountry());
+        new Select(WaitUtils.waitForClickableElement(driver,countryDropdown)).selectByValue(user.getCountry().getDisplayCountry());
         return this;
     }
 
     public SignupPage selectOffersCheckbox() {
-        waitForClickableElement(offersCheckbox).click();
+        WaitUtils.waitForClickableElement(driver,offersCheckbox).click();
         return this;
     }
 
     public SignupPage selectNewsletterCheckbox() {
-        waitForClickableElement(newsletterCheckbox).click();
+        WaitUtils.waitForClickableElement(driver,newsletterCheckbox).click();
         return this;
     }
     public SignupPage fillFullForm(User user){
@@ -214,7 +217,7 @@ public class SignupPage extends BasePage {
     }
 
     public AccountCreatedPage clickCreateAccountButton() {
-        waitForClickableElement(By.cssSelector("[data-qa='create-account']")).click();
-        return new AccountCreatedPage(getDriver());
+        WaitUtils.waitForClickableElement(driver,By.cssSelector("[data-qa='create-account']")).click();
+        return new AccountCreatedPage(driver);
     }
 }

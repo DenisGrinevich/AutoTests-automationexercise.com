@@ -1,6 +1,11 @@
+/*
+Page Object класс для страницы оплаты, в нем элементы и методы для взаимодействия со страницей
+ */
+
 package pages.checkout;
 
 import basic.base.BasePage;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,7 +37,7 @@ public class PaymentPage extends BasePage {
 
     public PaymentPage checkPaymentPage() {
         try {
-            waitForVisibleElement(By.xpath("//li[@class='active' and contains(text(), 'Checkout')]")).isDisplayed();
+            WaitUtils.waitForVisibleElement(driver, By.xpath("//li[@class='active' and contains(text(), 'Checkout')]")).isDisplayed();
             return this;
         } catch (Exception e) {
             throw new AssertionError("Открыта не страница оплаты");
@@ -70,8 +75,8 @@ public class PaymentPage extends BasePage {
     }
 
     public PaymentDonePage clickConfirmButton() {
-        waitForClickableElement(confirmButton).click();
-        return new PaymentDonePage(getDriver());
+        WaitUtils.waitForClickableElement(driver,confirmButton).click();
+        return new PaymentDonePage(driver);
     }
 
 

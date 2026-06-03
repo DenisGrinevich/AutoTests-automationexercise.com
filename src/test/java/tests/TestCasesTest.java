@@ -1,3 +1,7 @@
+/*
+Класс для тестов, связанных со страницей с тесткейсами
+ */
+
 package tests;
 
 import basic.base.BaseTest;

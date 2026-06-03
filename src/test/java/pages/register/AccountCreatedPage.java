@@ -1,7 +1,11 @@
+/*
+Page Object класс для промежуточной страницы с сообщением об создании аккаунта
+ */
+
 package pages.register;
 
 import basic.base.BasePage;
-import basic.tools.Logging;
+import basic.tools.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
@@ -9,16 +13,14 @@ import pages.HomePage;
 public class AccountCreatedPage extends BasePage {
     public AccountCreatedPage(WebDriver driver) {
         super(driver);
-        Logging.info("Открыта страница подтверждения создания аккаунта");
-
     }
 
     public String getAccountCreatedText(){
-        return waitForClickableElement(By.xpath("//*[.='Account Created!']")).getText();
+        return WaitUtils.waitForClickableElement(driver,By.xpath("//*[.='Account Created!']")).getText();
 
     }
     public HomePage clickContinueButton(){
-        waitForClickableElement((By.cssSelector("[data-qa='continue-button']"))).click();
-        return new HomePage(getDriver());
+        WaitUtils.waitForClickableElement(driver,By.cssSelector("[data-qa='continue-button']")).click();
+        return new HomePage(driver);
     }
 }

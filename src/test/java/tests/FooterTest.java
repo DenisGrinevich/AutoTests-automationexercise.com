@@ -1,3 +1,7 @@
+/*
+Класс для тестов, связанных с фукционалом футера
+ */
+
 package tests;
 
 import basic.base.BaseTest;

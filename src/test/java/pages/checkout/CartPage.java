@@ -1,8 +1,13 @@
+/*
+Page Object класс для страницы корзины, в нем элементы и методы для взаимодействия со страницей
+ */
+
 package pages.checkout;
 
 import basic.base.BasePage;
-import basic.tools.Logging;
-import component.products.CartProduct;
+import basic.tools.WaitUtils;
+import component.products.CartProductComponent;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +17,7 @@ import pages.register.LoginPage;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 public class CartPage extends BasePage {
 
     public static final String URL = ("/view_cart");
@@ -28,12 +33,11 @@ public class CartPage extends BasePage {
 
     public CartPage(WebDriver driver) {
         super(driver);
-        Logging.info("Открыта страница корзины");
     }
 
     public CartPage checkCartPage() {
         try {
-            waitForVisibleElement(By.xpath("//a[@href='/view_cart' and @style='color: orange;']")).isDisplayed();
+            WaitUtils.waitForVisibleElement(driver, By.xpath("//a[@href='/view_cart' and @style='color: orange;']")).isDisplayed();
             return this;
         } catch (Exception e) {
             throw new AssertionError("Открыта не страница корзины");
@@ -41,40 +45,39 @@ public class CartPage extends BasePage {
     }
 
     public CartPage clickProceedButton() {
-        waitForClickableElement(proceedButton).click();
+        WaitUtils.waitForClickableElement(driver,proceedButton).click();
         return this;
     }
 
-    public LoginPage clickLoginlink() {
-        waitForClickableElement(loginLink).click();
-        return new LoginPage(getDriver());
+    public LoginPage clickLoginLink() {
+        WaitUtils.waitForClickableElement(driver, loginLink).click();
+        return new LoginPage(driver);
     }
 
-
-    public List<CartProduct> getAllProductsFromCart() {
-        List<WebElement> rows = getDriver().findElements(By.xpath("//tr[@id]"));
+    public List<CartProductComponent> getAllProductsFromCart() {
+        List<WebElement> rows = driver.findElements(By.xpath("//tr[@id]"));
         if (rows.isEmpty())
             throw new NullPointerException("В корзине нет товаров");
 
         return rows.stream()
-                .map(row -> new CartProduct(row, getDriver()))
-                .collect(Collectors.toList());
+                .map(row -> new CartProductComponent(row, driver))
+                .toList();
     }
 
     public CartPage removeProduct(int productId) {
-        CartProduct product = getAllProductsFromCart().stream()
-                .filter(p -> p.getId() == productId)
+        CartProductComponent product = getAllProductsFromCart().stream()
+                .filter(p -> p.parseData().getId() == productId)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Товар с id=" + productId + " не найден в корзине"));
         product.clickOnDeleteButton();
-        waitForInvisibleElement((By.id("product-" + productId)));
-        Logging.info("Товар с id = " + productId + " удален из корзины");
+        WaitUtils.waitForInvisibleElement(driver,(By.id("product-" + productId)));
+        log.info("Товар с id = {} удален из корзины", productId);
         return this;
     }
 
     public boolean isProductInCart(int productId) {
         return getAllProductsFromCart()
                 .stream()
-                .anyMatch(p -> p.getId() == productId);
+                .anyMatch(p -> p.parseData().getId() == productId);
     }
 }
