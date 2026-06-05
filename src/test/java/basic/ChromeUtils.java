@@ -20,7 +20,7 @@ public class ChromeUtils {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-popup-blocking");
-//        options.addArguments("--headless=new");
+        options.addArguments("--headless=new");
         options.addArguments("--window-size=1920,1080");
 
         //Удаление рекламы
