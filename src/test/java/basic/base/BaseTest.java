@@ -7,6 +7,7 @@ package basic.base;
 
 import basic.ChromeUtils;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -30,8 +31,9 @@ public abstract class BaseTest {
     }
 
     @BeforeMethod(alwaysRun = true)
-    protected void beforeMethod() {
+    protected void beforeMethod(ITestContext context) {
         startDriver();
+        context.setAttribute("driver", driver);
     }
 
     @AfterMethod(alwaysRun = true)

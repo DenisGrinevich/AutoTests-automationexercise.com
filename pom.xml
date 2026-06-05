@@ -47,7 +47,8 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.33.0</version>
+            <!-- обновить -->
+            <version>4.44.0</version>
         </dependency>
 
         <dependency>
@@ -104,6 +105,11 @@
             <artifactId>lombok</artifactId>
             <version>1.18.42</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.lightbody.bmp</groupId>
+            <artifactId>browsermob-core</artifactId>
+            <version>2.1.5</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
