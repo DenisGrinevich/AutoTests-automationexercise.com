@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class AddProductsToCartTest extends BaseTest {
 
-    final User user = UserFactory.defaultUser();
+    final User user = UserFactory.existingUser();
 
     @Test(description = "№12: Add Products in Cart", groups = {"smoke"})
     public void testAddProductsToCart() {

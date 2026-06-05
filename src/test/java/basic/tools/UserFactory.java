@@ -28,4 +28,12 @@ public class UserFactory {
                 .mobileNumber("880005553535")
                 .build();
     }
+
+    public static User existingUser(){
+        return User.builder()
+                .email("test0306@n.net")
+                .name("qweqweqwe")
+                .password("Qw123123123")
+                .build();
+    }
 }
