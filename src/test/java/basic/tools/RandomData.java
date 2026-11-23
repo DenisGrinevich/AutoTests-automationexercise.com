@@ -8,9 +8,9 @@ import java.util.Random;
 
 public class RandomData {
 
-    public static int randomNumber(int num) {
+    public static int randomNumber() {
         Random random = new Random();
-        int randomNumber = random.nextInt(num);
+        int randomNumber = random.nextInt();
         return randomNumber;
     }
 }
